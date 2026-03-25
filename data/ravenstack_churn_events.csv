@@ -1,0 +1,601 @@
+churn_event_id,account_id,churn_date,reason_code,refund_amount_usd,preceding_upgrade_flag,preceding_downgrade_flag,is_reactivation,feedback_text
+CE-1eac9873,A-fdeda5,2024-12-24,competitor,0.0,False,False,False,Support response times were too slow.
+CE-cf0856f7,A-a721c1,2022-12-20,pricing,0.0,True,True,False,
+CE-62272ffa,A-ed6bb8,2021-04-17,features,499.88,True,False,False,Pricing increased beyond our budget.
+CE-13b7f574,A-f7395b,2023-01-25,pricing,0.0,False,True,False,Pricing increased beyond our budget.
+CE-22360245,A-37b909,2022-08-03,pricing,0.0,True,False,False,Team no longer needed this functionality.
+CE-4d0ab239,A-4cf7f7,2023-04-23,budget,0.0,False,False,False,
+CE-d2b31000,A-faad0f,2021-02-08,competitor,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-532af99d,A-0edc7e,2024-03-26,pricing,0.0,True,False,False,Tool didn't integrate well with our stack.
+CE-98326af7,A-8563a7,2023-06-15,features,0.0,False,False,True,Product lacked key features we needed.
+CE-2bba9ae7,A-0268ce,2021-02-11,support,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-69699433,A-dee10f,2023-11-01,budget,0.0,False,False,False,Product lacked key features we needed.
+CE-e631015e,A-ca5e0e,2022-12-31,competitor,0.0,False,False,False,Support response times were too slow.
+CE-22627f62,A-186adc,2021-10-20,budget,0.0,True,False,False,Team no longer needed this functionality.
+CE-0b04d8db,A-ba7ab9,2024-06-07,pricing,0.0,True,False,False,Tool didn't integrate well with our stack.
+CE-47ea2fb3,A-76a68f,2023-01-06,budget,0.0,True,False,False,Product lacked key features we needed.
+CE-e2c214df,A-abbbd0,2024-07-26,budget,0.0,False,False,False,Support response times were too slow.
+CE-5408ef47,A-377924,2022-02-28,competitor,0.0,False,True,False,Tool didn't integrate well with our stack.
+CE-78cbdb62,A-dc726d,2021-02-14,pricing,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-ab75d65c,A-2c3420,2024-03-08,features,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-c6344806,A-6e303f,2021-08-23,unknown,0.0,True,False,False,
+CE-ba17b198,A-0c9ef2,2023-05-13,competitor,113.12,False,True,True,Tool didn't integrate well with our stack.
+CE-e6fd814d,A-a721c1,2023-02-16,features,328.59,True,True,False,
+CE-2195bbaa,A-b0fdf8,2021-01-23,features,194.36,False,False,False,
+CE-b8dd7b30,A-68ffd0,2021-07-01,unknown,0.0,False,False,False,Pricing increased beyond our budget.
+CE-f12a9353,A-6df3cb,2024-07-05,pricing,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-b80b67fd,A-949e9c,2024-01-04,unknown,110.98,False,False,False,Tool didn't integrate well with our stack.
+CE-14160f32,A-891867,2022-01-14,support,31.56,False,False,False,Team no longer needed this functionality.
+CE-fb56f38b,A-9e9f30,2023-02-15,support,263.51,False,False,False,Found a cheaper alternative.
+CE-755f1ce5,A-4f71e8,2022-02-08,pricing,0.0,False,False,False,
+CE-b8133cb3,A-3a3477,2022-04-08,competitor,344.36,False,False,False,Team no longer needed this functionality.
+CE-814cebad,A-ece32d,2021-01-07,features,0.0,True,False,False,Support response times were too slow.
+CE-3ae27a9a,A-1b90d5,2024-05-11,support,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-1439688f,A-3841e3,2021-03-15,budget,43.71,False,False,False,Team no longer needed this functionality.
+CE-7328e093,A-26bbfd,2021-05-23,features,28.07,False,False,False,Tool didn't integrate well with our stack.
+CE-3e7a16bd,A-71c2db,2021-03-16,unknown,0.0,False,False,False,Support response times were too slow.
+CE-97189344,A-f89626,2023-02-22,budget,0.0,False,False,False,Team no longer needed this functionality.
+CE-9b9f0524,A-e6ef8b,2024-06-03,pricing,0.0,False,False,False,
+CE-d702754d,A-144089,2022-05-06,features,0.0,False,False,False,Pricing increased beyond our budget.
+CE-929ad046,A-8d201d,2024-10-02,competitor,239.92,True,False,False,
+CE-5cee41c2,A-3f9994,2024-03-18,features,0.0,False,False,False,Found a cheaper alternative.
+CE-702ac15e,A-5ba322,2022-08-14,features,0.0,False,False,False,Pricing increased beyond our budget.
+CE-3333591b,A-f4c25c,2021-03-31,features,0.0,True,False,True,Product lacked key features we needed.
+CE-e8cd08be,A-04a246,2023-11-15,unknown,0.0,False,False,False,Product lacked key features we needed.
+CE-e65815ea,A-715861,2022-11-22,budget,472.97,False,False,False,Team no longer needed this functionality.
+CE-128a5f6f,A-c1d6f0,2022-11-11,budget,0.0,True,True,False,Support response times were too slow.
+CE-8f672902,A-4064bb,2022-11-19,budget,0.0,True,False,False,Tool didn't integrate well with our stack.
+CE-2114e7ee,A-46d001,2024-06-30,competitor,0.0,True,False,True,Pricing increased beyond our budget.
+CE-c5e25062,A-8b3a95,2023-11-28,pricing,0.0,False,False,False,Found a cheaper alternative.
+CE-a84ac172,A-8e16f1,2022-01-21,unknown,380.56,False,False,False,Pricing increased beyond our budget.
+CE-7a2c0b96,A-d8771a,2023-09-13,budget,0.0,False,False,False,Team no longer needed this functionality.
+CE-69a786a5,A-0ff5dc,2024-09-17,unknown,0.0,False,False,False,Support response times were too slow.
+CE-0a7c86a9,A-bda37c,2022-10-03,unknown,141.82,False,False,False,Pricing increased beyond our budget.
+CE-e6c52f57,A-cc6cd9,2023-02-14,features,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-9b310048,A-1ce57d,2023-05-22,support,0.0,False,False,False,Team no longer needed this functionality.
+CE-f49fb6a6,A-54f16c,2024-07-19,pricing,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-8a9fd056,A-a98afd,2021-03-03,competitor,0.0,True,False,False,Pricing increased beyond our budget.
+CE-c9617c14,A-1bf244,2022-09-09,budget,346.94,False,False,False,Pricing increased beyond our budget.
+CE-021303ce,A-dee10f,2022-01-04,unknown,0.0,False,False,False,
+CE-0a5f56d3,A-275a5e,2021-04-22,features,0.0,False,False,False,Pricing increased beyond our budget.
+CE-f00ac4ab,A-5c19da,2024-11-20,pricing,0.0,False,True,False,Found a cheaper alternative.
+CE-3047dbd7,A-396e8b,2022-08-28,competitor,345.56,False,False,False,Budget cuts forced us to cancel.
+CE-c095a3f6,A-b515e1,2024-05-03,support,0.0,True,False,True,Pricing increased beyond our budget.
+CE-11b55928,A-168fe2,2023-11-30,pricing,0.0,False,False,False,Support response times were too slow.
+CE-4827b634,A-d78e97,2024-12-12,features,474.75,False,False,False,Tool didn't integrate well with our stack.
+CE-b0c7fb01,A-3a3477,2021-04-30,pricing,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-0db1afa2,A-f89626,2021-02-12,pricing,0.0,False,False,False,Product lacked key features we needed.
+CE-df034925,A-f11b19,2021-07-26,pricing,0.0,True,False,False,Product lacked key features we needed.
+CE-a012edc6,A-7b8bff,2023-03-21,budget,274.64,False,False,False,Budget cuts forced us to cancel.
+CE-4a1b4aa4,A-3f9994,2022-10-11,competitor,0.0,False,False,False,Product lacked key features we needed.
+CE-af828d80,A-a54ab8,2024-11-23,budget,0.0,False,True,False,Support response times were too slow.
+CE-6224d625,A-961183,2023-05-11,competitor,0.0,False,False,False,Product lacked key features we needed.
+CE-b0221893,A-5e8a5d,2023-12-21,competitor,0.0,False,False,False,
+CE-aeb8cabd,A-741acd,2023-04-18,support,0.0,True,False,False,
+CE-e875e8a3,A-c6ab7a,2023-03-07,budget,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-6fa85763,A-77d382,2024-04-20,pricing,29.98,False,False,False,Tool didn't integrate well with our stack.
+CE-771e7b7d,A-e6e3cd,2023-07-21,unknown,326.77,False,True,True,Support response times were too slow.
+CE-2d70e7b7,A-e1796c,2021-01-23,support,0.0,True,False,True,Support response times were too slow.
+CE-e3c9ea6a,A-5d149a,2024-09-18,features,0.0,False,False,False,Found a cheaper alternative.
+CE-96c1e37e,A-fb30f4,2022-12-15,budget,465.77,True,False,False,Budget cuts forced us to cancel.
+CE-13e2b800,A-c402fb,2024-11-23,support,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-5338158e,A-82c3e3,2024-09-25,budget,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-4a23df98,A-6fdb5c,2022-11-14,unknown,317.46,False,False,False,Support response times were too slow.
+CE-bfc866e8,A-410bfd,2021-09-18,budget,0.0,True,False,False,Found a cheaper alternative.
+CE-403c3e09,A-7231b2,2024-09-28,features,0.0,False,False,False,Team no longer needed this functionality.
+CE-bf49ff28,A-396e8b,2021-06-08,pricing,0.0,False,False,False,
+CE-7147791b,A-275a5e,2022-02-28,support,0.0,True,False,False,
+CE-06db5d99,A-1f7327,2021-08-08,unknown,0.0,False,False,False,Support response times were too slow.
+CE-36e68060,A-48a544,2021-09-07,competitor,0.0,False,True,False,Team no longer needed this functionality.
+CE-e3f3afb6,A-f43965,2023-02-24,support,0.0,False,False,False,Team no longer needed this functionality.
+CE-e8cf58e2,A-825eb0,2021-02-07,budget,0.0,False,False,False,Found a cheaper alternative.
+CE-e9c5cb11,A-ece32d,2023-08-23,features,0.0,False,False,False,Found a cheaper alternative.
+CE-9dafd496,A-702e67,2021-08-19,support,0.0,False,True,False,Budget cuts forced us to cancel.
+CE-ddf788e3,A-3d75c1,2023-03-07,competitor,0.0,False,False,False,Product lacked key features we needed.
+CE-3e8a4b5d,A-9d4ff6,2022-09-01,budget,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-73f7dfe9,A-205093,2023-08-14,competitor,468.83,False,False,False,Support response times were too slow.
+CE-71156f21,A-e1fa7f,2023-06-09,unknown,0.0,True,False,False,Team no longer needed this functionality.
+CE-a9c5ebcc,A-51e832,2023-08-30,budget,32.48,False,False,False,Product lacked key features we needed.
+CE-b66c4890,A-51ca60,2022-04-11,budget,498.88,False,False,False,Team no longer needed this functionality.
+CE-721154aa,A-40fc24,2024-05-07,features,0.0,False,False,False,Pricing increased beyond our budget.
+CE-44dbe774,A-715861,2021-10-01,competitor,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-fcc26f55,A-9175e6,2021-07-08,pricing,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-8abf68ec,A-674f3d,2022-11-27,support,0.0,True,True,True,Product lacked key features we needed.
+CE-1c359039,A-87ec94,2022-11-29,pricing,0.0,False,True,False,Found a cheaper alternative.
+CE-81bdab4c,A-91c9c6,2022-05-09,features,0.0,False,False,False,Found a cheaper alternative.
+CE-e97b2fab,A-8ae5b4,2021-08-02,features,0.0,False,False,False,
+CE-ee03b054,A-71c2db,2022-06-21,budget,0.0,False,False,False,Product lacked key features we needed.
+CE-1c1ef966,A-275a5e,2022-02-26,features,0.0,False,False,False,
+CE-1365de43,A-66d8db,2021-06-23,competitor,0.0,False,False,True,Found a cheaper alternative.
+CE-f9cfbd72,A-176774,2024-08-13,budget,442.2,True,False,False,Tool didn't integrate well with our stack.
+CE-e95fd0eb,A-518980,2021-02-27,support,0.0,False,True,False,Budget cuts forced us to cancel.
+CE-90957c52,A-87d27b,2021-09-02,pricing,0.0,False,False,False,Support response times were too slow.
+CE-2d6b717c,A-ed72be,2023-05-29,unknown,357.47,False,False,False,Support response times were too slow.
+CE-f0d53b82,A-31d091,2023-09-21,support,0.0,True,True,False,Support response times were too slow.
+CE-98da6b9f,A-9a8bb2,2022-01-02,competitor,84.38,False,False,False,Support response times were too slow.
+CE-e8916e21,A-2411d9,2022-10-22,competitor,267.93,True,False,True,Tool didn't integrate well with our stack.
+CE-fde01f25,A-518980,2024-10-10,competitor,0.0,True,False,True,Tool didn't integrate well with our stack.
+CE-0449ede7,A-eca077,2022-08-14,pricing,1.19,False,False,False,Product lacked key features we needed.
+CE-1463eb11,A-b46328,2022-03-18,support,385.58,False,False,True,Team no longer needed this functionality.
+CE-f2f192a8,A-8e171c,2024-08-27,support,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-cf9ba5ec,A-780b56,2021-10-07,competitor,0.0,True,False,False,Product lacked key features we needed.
+CE-9d47ec93,A-9aab82,2023-10-07,features,0.0,False,True,False,Team no longer needed this functionality.
+CE-e48b26ee,A-825eb0,2024-05-01,budget,0.0,False,True,False,Team no longer needed this functionality.
+CE-cb1aa5ed,A-46fc8d,2022-05-20,competitor,0.0,False,False,False,
+CE-14b71d04,A-9e2b64,2022-05-01,budget,0.0,False,False,False,Found a cheaper alternative.
+CE-61d59143,A-87ec94,2024-04-26,support,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-1a030510,A-66ee96,2024-11-02,competitor,0.0,True,False,False,Found a cheaper alternative.
+CE-fe831569,A-bd844f,2023-11-10,unknown,0.0,False,False,False,Product lacked key features we needed.
+CE-a7b25117,A-42ab46,2023-05-24,unknown,0.0,True,False,False,
+CE-f86073d0,A-dec46e,2022-07-05,pricing,81.9,False,False,False,Tool didn't integrate well with our stack.
+CE-90f6b3fb,A-3f7dbc,2022-12-31,support,0.0,True,False,False,Team no longer needed this functionality.
+CE-dd4e09af,A-2312e2,2022-06-20,pricing,0.0,True,False,False,Tool didn't integrate well with our stack.
+CE-be5867a1,A-ba42fc,2022-01-04,features,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-f85212d8,A-9e2b64,2022-12-01,budget,0.0,False,False,False,Support response times were too slow.
+CE-c974e6f0,A-253b47,2021-05-10,features,0.0,True,False,False,Budget cuts forced us to cancel.
+CE-30ab062f,A-d07cf7,2024-07-30,unknown,0.0,False,False,False,Pricing increased beyond our budget.
+CE-fde8203c,A-9f9cca,2022-05-08,competitor,26.98,False,True,False,Support response times were too slow.
+CE-fd4db1dd,A-9f521d,2024-04-07,budget,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-229441bf,A-77cb78,2023-04-10,budget,0.0,False,False,False,Found a cheaper alternative.
+CE-dc1bb5ac,A-ea1711,2021-03-05,competitor,0.0,False,True,False,Support response times were too slow.
+CE-a7391812,A-66ee96,2023-10-13,support,0.0,False,False,True,Budget cuts forced us to cancel.
+CE-9373b5c8,A-275502,2021-09-08,unknown,0.0,True,False,False,Team no longer needed this functionality.
+CE-d30c837f,A-9c8b42,2021-09-05,features,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-054b6060,A-186adc,2023-09-15,budget,0.0,True,True,False,Tool didn't integrate well with our stack.
+CE-e0e55bb8,A-abbbd0,2021-01-19,budget,0.0,False,False,False,Support response times were too slow.
+CE-c4384f16,A-e1796c,2023-05-17,unknown,0.0,True,False,False,Tool didn't integrate well with our stack.
+CE-5b8bad28,A-38094a,2021-10-22,unknown,0.0,True,False,False,Pricing increased beyond our budget.
+CE-8b50ec44,A-253b47,2021-10-05,pricing,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-3d49d0c3,A-faad0f,2023-11-05,pricing,0.0,False,False,False,Support response times were too slow.
+CE-fa051f38,A-9aab82,2022-08-10,support,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-eb949c87,A-b36d98,2022-10-22,features,0.0,False,False,False,Product lacked key features we needed.
+CE-f7c9ca2b,A-95248b,2021-04-10,competitor,0.0,False,False,False,Product lacked key features we needed.
+CE-4bf4a74f,A-f60e4b,2023-06-08,unknown,0.0,False,False,False,
+CE-c23493c5,A-df55b3,2024-04-10,pricing,238.69,False,False,False,Team no longer needed this functionality.
+CE-601c8c0b,A-77d382,2023-11-19,pricing,472.74,False,False,False,Pricing increased beyond our budget.
+CE-d9c2b409,A-37b909,2024-08-15,unknown,0.0,False,False,False,Pricing increased beyond our budget.
+CE-cc33f8db,A-410bfd,2021-12-28,unknown,168.97,False,False,False,Support response times were too slow.
+CE-7233ecf6,A-8a8f8a,2024-11-13,pricing,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-8d07b427,A-3c413d,2023-12-06,budget,0.0,True,False,False,Product lacked key features we needed.
+CE-b7dc439c,A-7aee9c,2021-07-17,unknown,0.0,False,False,False,Found a cheaper alternative.
+CE-b3c4fccf,A-85a324,2023-07-06,budget,0.0,False,False,False,Pricing increased beyond our budget.
+CE-4a39f862,A-503d27,2024-09-20,competitor,0.0,False,False,False,Team no longer needed this functionality.
+CE-bdfecdd3,A-67e8d1,2022-03-14,pricing,69.66,False,False,False,
+CE-8f2d9f97,A-c00b52,2021-08-29,features,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-8accbc16,A-d87876,2023-01-04,pricing,0.0,True,False,False,Budget cuts forced us to cancel.
+CE-9c147ff1,A-572cc7,2024-09-03,support,489.51,False,False,False,Found a cheaper alternative.
+CE-d0a47f56,A-9a8bb2,2021-10-06,unknown,180.69,False,False,False,
+CE-074c5245,A-9f521d,2024-03-18,unknown,296.22,False,True,False,Product lacked key features we needed.
+CE-20425487,A-a481e9,2023-03-11,features,0.0,False,False,False,Support response times were too slow.
+CE-684f571b,A-0c8a26,2024-06-08,unknown,0.0,False,False,False,Product lacked key features we needed.
+CE-a5e2a206,A-d9ad81,2023-06-12,budget,379.37,False,False,False,Tool didn't integrate well with our stack.
+CE-3ebd8040,A-0bcb7a,2023-08-29,competitor,0.0,False,False,False,Pricing increased beyond our budget.
+CE-93124ad9,A-36c0b3,2023-02-09,pricing,0.0,True,False,False,Product lacked key features we needed.
+CE-5e84b730,A-168fe2,2024-08-24,unknown,0.0,True,False,False,Tool didn't integrate well with our stack.
+CE-20805e5a,A-37b909,2023-07-01,support,0.0,True,False,False,Found a cheaper alternative.
+CE-0fc50dd5,A-7aee9c,2022-03-03,unknown,36.06,False,True,True,Tool didn't integrate well with our stack.
+CE-fb8f1c75,A-314379,2023-03-13,budget,0.0,False,False,False,Team no longer needed this functionality.
+CE-42164cdb,A-4ef13f,2024-09-27,support,0.0,True,False,False,Pricing increased beyond our budget.
+CE-2100347d,A-fc24f9,2021-01-22,budget,0.0,False,True,False,Product lacked key features we needed.
+CE-952355fc,A-b36d98,2021-02-10,features,453.01,False,False,False,Team no longer needed this functionality.
+CE-84f9ec9b,A-1f7327,2022-09-28,pricing,416.37,True,False,False,Tool didn't integrate well with our stack.
+CE-0caf0f10,A-144089,2021-07-26,budget,0.0,False,False,False,Found a cheaper alternative.
+CE-7778a256,A-78d2ec,2021-02-18,pricing,0.0,False,False,True,Found a cheaper alternative.
+CE-20ef5c98,A-a54ab8,2023-10-01,pricing,213.32,False,False,False,Pricing increased beyond our budget.
+CE-37466f9d,A-66b64e,2024-11-12,unknown,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-f5f976e7,A-f1d958,2021-09-25,pricing,0.0,True,True,False,Product lacked key features we needed.
+CE-c6f0467f,A-7e69c7,2024-05-28,budget,0.0,False,False,False,Support response times were too slow.
+CE-efc84cb1,A-299f66,2023-06-04,features,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-7fcb8b91,A-579d6a,2022-07-27,competitor,0.0,False,False,False,Found a cheaper alternative.
+CE-3074011f,A-8ae5b4,2024-01-03,unknown,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-e96ac9cd,A-2c1987,2024-11-11,unknown,0.0,True,False,False,Support response times were too slow.
+CE-5830beac,A-626bb3,2023-12-22,competitor,0.0,False,True,False,Team no longer needed this functionality.
+CE-dc8964bb,A-daa5e3,2022-01-24,budget,0.0,True,False,True,Product lacked key features we needed.
+CE-d291b605,A-aeac12,2023-10-03,unknown,0.0,False,False,False,Team no longer needed this functionality.
+CE-2ac750c2,A-df55b3,2023-12-28,budget,0.0,False,False,False,
+CE-f4939a67,A-ef8d69,2021-01-12,competitor,0.0,False,False,False,Found a cheaper alternative.
+CE-aecf61aa,A-01c648,2024-12-01,competitor,0.0,False,False,True,Team no longer needed this functionality.
+CE-eb6b2a11,A-df2118,2022-12-08,pricing,0.0,True,False,False,Pricing increased beyond our budget.
+CE-0ddcc776,A-daa5e1,2022-05-11,competitor,0.0,False,True,False,
+CE-ce1cb18b,A-d5aaf6,2021-11-12,support,0.0,False,False,False,
+CE-2962f319,A-1aa01f,2021-03-08,budget,0.0,True,False,False,Budget cuts forced us to cancel.
+CE-3799627d,A-0d7286,2024-07-29,features,0.0,True,False,False,Team no longer needed this functionality.
+CE-d282654c,A-105528,2024-12-06,features,0.0,False,False,False,Pricing increased beyond our budget.
+CE-54a72d64,A-a2e460,2022-05-06,unknown,0.0,False,False,False,Found a cheaper alternative.
+CE-31e1697a,A-31d091,2022-05-27,pricing,0.0,False,False,False,Found a cheaper alternative.
+CE-0d3360cd,A-26efad,2024-11-28,features,0.0,False,False,False,Found a cheaper alternative.
+CE-1401798d,A-26efad,2024-09-03,support,0.0,False,False,False,Support response times were too slow.
+CE-0213376a,A-23c1ea,2023-02-16,budget,0.0,False,False,False,Found a cheaper alternative.
+CE-960771e4,A-57e924,2024-11-25,budget,0.0,True,False,True,Team no longer needed this functionality.
+CE-d295cd84,A-168fe2,2023-06-13,budget,0.0,False,True,False,Team no longer needed this functionality.
+CE-55574cb6,A-819eaf,2024-12-07,support,0.0,False,False,False,Product lacked key features we needed.
+CE-2befb159,A-674f3d,2021-12-02,features,154.5,False,False,False,Support response times were too slow.
+CE-0bc87774,A-23c1ea,2021-12-27,support,0.0,False,True,False,Tool didn't integrate well with our stack.
+CE-58c80295,A-b32d86,2023-02-17,unknown,423.11,False,False,False,Support response times were too slow.
+CE-3d5a9fd4,A-246226,2021-09-01,pricing,0.0,True,True,False,
+CE-77cffd4e,A-c812ae,2021-07-11,support,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-5cf58a0b,A-144089,2024-05-02,pricing,0.0,False,False,False,
+CE-c85fcb68,A-cc4e00,2021-10-23,unknown,347.36,False,False,False,Tool didn't integrate well with our stack.
+CE-0ee7c237,A-89fca7,2024-07-06,features,0.0,False,False,True,Pricing increased beyond our budget.
+CE-32e85670,A-9e5b2d,2021-03-22,unknown,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-5a5e2251,A-001d08,2024-11-25,support,0.0,True,False,False,Found a cheaper alternative.
+CE-cade2742,A-f3aa45,2021-06-17,features,0.0,False,False,False,Product lacked key features we needed.
+CE-62e3e1c0,A-e6ef8b,2021-02-18,budget,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-5bb1eaf8,A-b56ab1,2023-02-27,unknown,0.0,False,False,False,Found a cheaper alternative.
+CE-d54cfb58,A-4064bb,2024-05-28,features,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-4b8aefd8,A-643967,2024-01-06,pricing,0.0,False,True,True,Pricing increased beyond our budget.
+CE-e395b1c3,A-d5aaf6,2021-04-01,unknown,0.0,True,False,True,Support response times were too slow.
+CE-0ed2164d,A-fb30f4,2023-04-16,features,0.0,True,False,False,Found a cheaper alternative.
+CE-ad5f6e24,A-e23d29,2024-04-17,competitor,0.0,True,False,True,Found a cheaper alternative.
+CE-d182840c,A-99995c,2021-03-20,budget,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-a70da14b,A-057df9,2023-05-07,support,0.0,False,False,False,Product lacked key features we needed.
+CE-85760fbd,A-e71149,2023-12-27,pricing,0.0,False,True,False,Support response times were too slow.
+CE-d9120628,A-671cbf,2024-11-28,features,0.0,False,False,False,Product lacked key features we needed.
+CE-b3d45b5d,A-2cf08b,2021-01-07,pricing,205.56,False,False,False,Team no longer needed this functionality.
+CE-b4ece75c,A-9a2c4f,2021-06-25,unknown,120.02,False,False,False,
+CE-2778d4ec,A-29b014,2023-01-20,competitor,0.0,False,True,True,Found a cheaper alternative.
+CE-90960176,A-fa82d4,2024-08-26,support,0.0,True,False,False,Team no longer needed this functionality.
+CE-005c4159,A-274168,2023-11-15,competitor,0.0,False,False,False,Product lacked key features we needed.
+CE-4cbdd09f,A-9d992c,2023-08-01,support,0.0,False,False,True,Team no longer needed this functionality.
+CE-ee2e27b8,A-df55b3,2022-03-24,unknown,307.78,True,False,False,
+CE-bc2558d0,A-efbe71,2023-10-26,support,0.0,True,False,True,Pricing increased beyond our budget.
+CE-21c61c92,A-3cccbc,2022-12-22,pricing,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-4fc71515,A-2ca16b,2021-09-04,unknown,0.0,False,True,False,Pricing increased beyond our budget.
+CE-1ed43098,A-09489d,2023-12-11,support,0.0,False,False,False,Found a cheaper alternative.
+CE-f58b5b97,A-9f63c6,2022-01-14,budget,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-c59defc4,A-9b417b,2021-07-01,unknown,0.0,True,False,False,Found a cheaper alternative.
+CE-2968a76f,A-29b014,2021-05-19,unknown,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-3d992dba,A-9e2b64,2021-03-05,pricing,0.0,True,False,False,Tool didn't integrate well with our stack.
+CE-4c30cbb4,A-9175e6,2022-03-02,unknown,34.29,False,False,False,Pricing increased beyond our budget.
+CE-d0ce3524,A-9e9f30,2022-11-05,features,0.0,False,False,False,Product lacked key features we needed.
+CE-6c452d15,A-bc0a07,2021-06-28,competitor,0.0,True,False,False,Pricing increased beyond our budget.
+CE-8f2ec424,A-7cb77a,2021-09-15,features,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-2e431f83,A-a54ab8,2023-01-27,features,347.75,False,False,False,
+CE-d6a4de93,A-f4c25c,2021-09-17,pricing,0.0,False,False,False,Found a cheaper alternative.
+CE-d5f317fd,A-2b8e44,2023-05-28,budget,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-bcdc0add,A-c0f13b,2021-03-13,competitor,0.0,False,False,False,Found a cheaper alternative.
+CE-53336388,A-ed6bb8,2024-08-22,pricing,295.68,False,False,False,Product lacked key features we needed.
+CE-f5f3b3d6,A-27e0e9,2024-06-23,unknown,0.0,False,False,False,Support response times were too slow.
+CE-267e2e72,A-4983af,2024-05-16,support,0.0,True,False,False,Tool didn't integrate well with our stack.
+CE-4bbd09d0,A-04b853,2023-06-04,features,444.79,False,False,False,Budget cuts forced us to cancel.
+CE-f8ebb27a,A-1788ce,2021-09-08,support,0.0,False,False,False,Team no longer needed this functionality.
+CE-61ddbdf9,A-bc1b91,2021-06-20,unknown,0.0,False,True,False,Pricing increased beyond our budget.
+CE-044e9a91,A-ab9ba5,2024-08-30,features,387.08,False,False,False,
+CE-d4a48d3e,A-8e16f1,2021-09-27,competitor,233.56,False,False,False,Found a cheaper alternative.
+CE-33636926,A-819eaf,2023-11-25,support,466.01,True,False,False,Team no longer needed this functionality.
+CE-a244fa66,A-09bda1,2023-08-31,pricing,423.4,False,False,False,Tool didn't integrate well with our stack.
+CE-cf78d582,A-a3efac,2021-07-01,pricing,0.0,True,False,False,Product lacked key features we needed.
+CE-c82357cb,A-d87876,2023-04-23,budget,0.0,False,False,False,Team no longer needed this functionality.
+CE-bf59d2f5,A-a2e460,2022-02-23,support,0.0,False,False,False,Found a cheaper alternative.
+CE-5d38e1ec,A-b543ff,2022-05-08,competitor,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-714e1f22,A-4ef13f,2021-07-10,unknown,289.21,False,False,False,Budget cuts forced us to cancel.
+CE-a901a126,A-95248b,2024-12-31,support,0.0,False,False,False,Support response times were too slow.
+CE-de2d95db,A-54f16c,2022-01-27,competitor,0.0,False,False,False,Support response times were too slow.
+CE-47392835,A-393763,2023-11-07,competitor,0.0,True,False,False,Tool didn't integrate well with our stack.
+CE-78e4af51,A-68948f,2022-08-29,competitor,0.0,False,False,False,Pricing increased beyond our budget.
+CE-0e49356e,A-b1f3cb,2021-07-19,support,0.0,True,False,False,Budget cuts forced us to cancel.
+CE-ee8ad46f,A-36c0b3,2024-11-09,unknown,0.0,True,False,False,Found a cheaper alternative.
+CE-6615085e,A-949e9c,2021-04-24,budget,0.0,False,False,False,Found a cheaper alternative.
+CE-48a45b93,A-8e171c,2022-03-17,support,497.38,False,False,False,Pricing increased beyond our budget.
+CE-3aa85956,A-27e0e9,2023-03-14,pricing,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-c4f2aa7e,A-216da3,2022-07-18,budget,0.0,False,False,False,Support response times were too slow.
+CE-23315c35,A-430daf,2022-04-06,support,7.59,False,False,False,Team no longer needed this functionality.
+CE-a68ae1bf,A-9d9ed2,2022-09-06,unknown,0.0,True,False,False,Pricing increased beyond our budget.
+CE-c122bb8a,A-76eede,2024-01-28,competitor,0.0,False,False,False,Support response times were too slow.
+CE-c22fb736,A-390557,2023-02-28,pricing,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-0ecad4ed,A-af8daf,2024-09-29,support,51.95,False,False,False,Team no longer needed this functionality.
+CE-3da5019c,A-e6ef8b,2021-12-30,budget,0.0,False,False,False,Team no longer needed this functionality.
+CE-f0f192a0,A-58a963,2022-12-10,unknown,0.0,False,False,True,Product lacked key features we needed.
+CE-4f8c4a3a,A-d0403b,2024-10-27,support,102.39,False,False,False,Team no longer needed this functionality.
+CE-6f71e39e,A-babd7f,2021-08-17,features,0.0,False,False,False,
+CE-ad5e5494,A-4983af,2021-12-13,competitor,0.0,False,True,False,Product lacked key features we needed.
+CE-f3a97cd2,A-59d242,2024-04-20,support,0.0,False,False,True,Product lacked key features we needed.
+CE-b26a3451,A-9d4ff6,2022-05-02,features,0.0,False,False,False,Found a cheaper alternative.
+CE-31149571,A-0e303f,2023-01-25,support,487.39,False,True,False,Pricing increased beyond our budget.
+CE-c41285d4,A-82c3e3,2021-04-12,budget,0.0,True,False,False,Team no longer needed this functionality.
+CE-f9f4c3f2,A-8e171c,2023-04-11,competitor,0.0,False,True,False,Support response times were too slow.
+CE-82331a1d,A-dbf513,2022-08-11,budget,0.0,False,False,False,Product lacked key features we needed.
+CE-6e225f7c,A-98ae9b,2021-10-09,support,0.0,False,False,False,Found a cheaper alternative.
+CE-3efd53e8,A-168fe2,2022-02-01,features,0.0,False,False,False,
+CE-28b214ae,A-0b1c34,2024-04-10,budget,0.0,False,False,True,
+CE-30fbbaa2,A-6e3d08,2024-11-07,features,0.0,False,False,False,Product lacked key features we needed.
+CE-08913bbe,A-2151c8,2024-12-06,unknown,0.0,True,False,False,Tool didn't integrate well with our stack.
+CE-03ade04d,A-105528,2021-01-20,support,222.56,False,False,False,Team no longer needed this functionality.
+CE-956a7612,A-4a3e3a,2021-12-02,budget,0.0,False,False,False,Product lacked key features we needed.
+CE-9ed140d9,A-85322a,2023-08-18,support,0.0,True,False,True,Pricing increased beyond our budget.
+CE-a42fc8c8,A-ea1711,2023-08-19,competitor,0.0,True,False,False,Tool didn't integrate well with our stack.
+CE-eb1d7d70,A-51ca60,2022-06-06,features,0.0,True,False,False,Product lacked key features we needed.
+CE-069bbf00,A-fd5d1c,2023-04-01,features,0.0,False,False,True,Tool didn't integrate well with our stack.
+CE-6161e3d4,A-ba42fc,2023-11-28,support,470.51,False,True,False,
+CE-cccdb0d6,A-8a2dcf,2023-09-29,pricing,0.0,True,False,False,Tool didn't integrate well with our stack.
+CE-4e3db9d4,A-2bf8bb,2024-06-06,support,117.32,False,False,True,Found a cheaper alternative.
+CE-b73835a3,A-5a868a,2024-01-18,features,276.42,False,False,False,Tool didn't integrate well with our stack.
+CE-61b7b0a7,A-e09af2,2023-02-25,budget,0.0,False,False,False,Found a cheaper alternative.
+CE-790bc330,A-655235,2021-11-01,support,282.13,False,False,False,Budget cuts forced us to cancel.
+CE-ec35ab2e,A-14e75c,2021-01-17,features,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-00766ac0,A-eca077,2023-05-08,support,0.0,False,False,True,Found a cheaper alternative.
+CE-cad26333,A-68948f,2023-06-04,features,0.0,False,True,False,Product lacked key features we needed.
+CE-caed26cd,A-26bbfd,2022-09-24,pricing,0.0,False,True,False,Budget cuts forced us to cancel.
+CE-7b682f77,A-e979f8,2022-10-17,unknown,0.0,True,False,False,Budget cuts forced us to cancel.
+CE-4b40e620,A-655235,2024-02-16,features,68.77,False,False,False,Found a cheaper alternative.
+CE-219765ad,A-01c648,2024-07-22,pricing,9.01,False,False,False,Support response times were too slow.
+CE-cf68c437,A-5d149a,2023-04-05,pricing,0.0,True,True,False,Pricing increased beyond our budget.
+CE-e01051e2,A-2feda1,2024-02-16,unknown,0.0,True,False,False,Found a cheaper alternative.
+CE-e879118f,A-d3d2c6,2023-11-09,features,0.0,False,False,False,Found a cheaper alternative.
+CE-b12f9a91,A-6f8408,2022-02-21,budget,0.0,False,False,False,Team no longer needed this functionality.
+CE-bba67720,A-4c2fc6,2024-12-05,pricing,0.0,False,False,False,
+CE-13408a15,A-e99e90,2021-12-02,budget,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-6efd1d6a,A-cc6cd9,2021-08-28,unknown,0.0,False,False,False,Pricing increased beyond our budget.
+CE-3731dadf,A-c4599d,2021-09-16,features,0.0,True,True,True,Support response times were too slow.
+CE-27d97807,A-9d992c,2022-11-24,support,0.0,True,True,False,Team no longer needed this functionality.
+CE-ce8cfdab,A-fb30f4,2021-08-13,pricing,0.0,False,False,False,
+CE-77076d5c,A-bda37c,2024-02-22,features,456.95,True,True,False,Support response times were too slow.
+CE-dc1a465a,A-bd844f,2022-03-30,competitor,0.0,False,True,False,Budget cuts forced us to cancel.
+CE-fd3fd894,A-bf83ac,2023-11-02,budget,405.4,False,False,False,Tool didn't integrate well with our stack.
+CE-bebf8259,A-b0fdf8,2023-04-10,features,0.0,False,False,False,Product lacked key features we needed.
+CE-6f4e5ccc,A-ff97ce,2021-12-05,competitor,0.0,False,False,False,Pricing increased beyond our budget.
+CE-a32b80af,A-c402fb,2023-06-15,budget,0.0,False,False,False,
+CE-444389e0,A-4cf7f7,2022-07-25,support,0.0,False,True,False,Product lacked key features we needed.
+CE-7be39725,A-800523,2024-05-20,unknown,0.0,True,False,True,
+CE-507ea407,A-7b3b51,2022-02-15,support,137.18,False,False,False,
+CE-23989a33,A-1aa01f,2022-11-21,unknown,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-8652359b,A-8e171c,2022-08-14,budget,195.05,False,False,False,Pricing increased beyond our budget.
+CE-3ba6ab6c,A-9f521d,2024-04-29,support,356.21,True,False,True,Pricing increased beyond our budget.
+CE-39a4d4eb,A-b67e99,2024-07-21,unknown,0.0,True,False,False,Found a cheaper alternative.
+CE-8df66761,A-b56ab1,2023-09-24,budget,0.0,False,False,False,Pricing increased beyond our budget.
+CE-7ad95902,A-b853d2,2024-06-20,unknown,0.0,False,False,False,Support response times were too slow.
+CE-b2ea0092,A-147497,2024-10-06,budget,0.0,False,True,False,Team no longer needed this functionality.
+CE-eeadf0e2,A-522b54,2021-02-02,competitor,0.0,False,False,False,
+CE-90b1d070,A-2be2ac,2024-04-20,competitor,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-32e94d58,A-5e8a5d,2024-05-24,budget,0.0,False,False,False,
+CE-f8f04bb5,A-63c268,2021-05-08,pricing,0.0,False,True,False,Found a cheaper alternative.
+CE-01d29529,A-3ea8a3,2024-01-26,competitor,0.0,False,False,False,Pricing increased beyond our budget.
+CE-2dc90d83,A-e85f12,2024-10-24,support,0.0,False,False,False,Support response times were too slow.
+CE-170cd595,A-9a2c4f,2024-12-14,unknown,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-870663bc,A-b95064,2023-11-05,unknown,0.0,False,False,False,
+CE-d9e93257,A-2be2ac,2022-11-04,unknown,415.5,False,True,False,Pricing increased beyond our budget.
+CE-2969dd03,A-64ddde,2023-03-16,unknown,0.0,False,False,False,
+CE-a4d43a7f,A-f60e4b,2024-01-09,support,0.0,False,True,False,
+CE-c76fad4f,A-cdee75,2021-05-03,budget,0.0,False,False,False,Product lacked key features we needed.
+CE-f5840c05,A-52d296,2021-06-16,support,69.95,True,False,False,Pricing increased beyond our budget.
+CE-09ef1c01,A-064dcf,2022-04-10,support,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-56d08be7,A-82c3e3,2023-04-01,support,0.0,True,False,False,Found a cheaper alternative.
+CE-bf2433a2,A-77d382,2022-10-09,features,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-d319cbe5,A-bda37c,2021-01-02,pricing,343.02,False,False,False,Tool didn't integrate well with our stack.
+CE-f90d9887,A-1f5600,2023-05-27,budget,0.0,False,False,False,Team no longer needed this functionality.
+CE-02c1977f,A-7231b2,2022-10-08,pricing,0.0,True,False,False,Support response times were too slow.
+CE-70624c21,A-2b9974,2022-01-26,unknown,0.0,False,False,False,Found a cheaper alternative.
+CE-f1f45aa0,A-10fde3,2021-10-12,pricing,248.96,False,False,True,Team no longer needed this functionality.
+CE-5287f823,A-68948f,2021-07-11,budget,0.0,False,False,False,Found a cheaper alternative.
+CE-f99dfc8f,A-38094a,2024-05-15,budget,0.0,False,True,False,Support response times were too slow.
+CE-340fd03b,A-c402fb,2024-07-20,competitor,0.0,False,False,False,Product lacked key features we needed.
+CE-406b160e,A-a3efac,2021-03-13,competitor,310.53,True,False,False,Product lacked key features we needed.
+CE-282d2904,A-314379,2021-05-07,budget,0.0,True,False,False,Team no longer needed this functionality.
+CE-9c0cd18c,A-e09af2,2021-03-29,pricing,201.2,False,False,False,Product lacked key features we needed.
+CE-968f9f78,A-449185,2024-11-16,support,246.39,False,False,False,Tool didn't integrate well with our stack.
+CE-73210bc8,A-faad0f,2024-11-20,budget,0.0,True,False,False,Support response times were too slow.
+CE-aef40b87,A-e2d27a,2021-07-14,features,228.81,False,False,False,Tool didn't integrate well with our stack.
+CE-c226a513,A-0e303f,2023-04-01,pricing,310.22,True,False,True,Budget cuts forced us to cancel.
+CE-85a09276,A-388c96,2023-08-21,features,0.0,True,False,True,
+CE-4957b90d,A-390557,2023-08-31,budget,0.0,True,True,False,
+CE-587b0af0,A-08a972,2023-10-11,competitor,0.0,False,False,False,
+CE-2f4ae439,A-f5777d,2022-12-04,pricing,0.0,False,False,False,
+CE-7bee4df0,A-6fdb5c,2024-02-09,budget,0.0,True,False,False,Support response times were too slow.
+CE-83500436,A-85a324,2022-10-20,unknown,0.0,False,False,False,Product lacked key features we needed.
+CE-63f0e203,A-76eede,2023-03-28,features,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-3a7b31d0,A-3633b2,2021-11-11,pricing,367.7,False,True,False,Budget cuts forced us to cancel.
+CE-16f00c57,A-430daf,2021-03-06,budget,324.27,False,False,False,Budget cuts forced us to cancel.
+CE-cb17df40,A-118777,2024-06-21,unknown,0.0,False,False,False,Found a cheaper alternative.
+CE-95b82560,A-d22b13,2023-05-31,support,0.0,True,False,False,Budget cuts forced us to cancel.
+CE-24b0c035,A-bb6306,2021-06-17,pricing,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-6c1b0217,A-2ca16b,2023-04-25,support,0.0,False,False,False,Support response times were too slow.
+CE-b658d857,A-2151c8,2024-08-04,unknown,0.0,False,True,False,Found a cheaper alternative.
+CE-1031a4a0,A-720f79,2021-12-14,features,0.0,True,False,False,Tool didn't integrate well with our stack.
+CE-d222e837,A-cc6cd9,2021-05-26,pricing,344.96,False,False,False,Pricing increased beyond our budget.
+CE-0baaad43,A-216da3,2021-05-17,unknown,159.18,False,False,False,Team no longer needed this functionality.
+CE-2695d3a8,A-bb8a0a,2021-08-12,features,62.45,False,False,False,Tool didn't integrate well with our stack.
+CE-8d8fdd56,A-ba42fc,2022-03-23,pricing,260.41,False,False,False,Budget cuts forced us to cancel.
+CE-daa3dccc,A-bc60c8,2023-10-14,budget,0.0,False,False,False,Support response times were too slow.
+CE-3a572f48,A-f60e4b,2023-01-11,competitor,0.0,True,False,False,Tool didn't integrate well with our stack.
+CE-cbe2794e,A-c48f44,2022-03-05,budget,46.57,True,False,False,Support response times were too slow.
+CE-1d584061,A-fdeda5,2023-11-06,features,36.71,False,False,False,Found a cheaper alternative.
+CE-59ab1082,A-45687e,2024-08-10,support,113.18,True,False,False,Pricing increased beyond our budget.
+CE-48ae55f3,A-2411d9,2024-10-20,competitor,0.0,False,False,False,Found a cheaper alternative.
+CE-9a1af7ef,A-9ccef5,2023-01-10,features,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-52620c4f,A-0d7286,2023-03-10,features,31.44,False,False,False,Team no longer needed this functionality.
+CE-5c86404c,A-671cbf,2024-03-08,budget,0.0,True,False,False,Found a cheaper alternative.
+CE-060d68c0,A-c166a2,2024-08-28,competitor,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-a83dd10b,A-a2e816,2022-06-20,competitor,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-1a614333,A-51ca60,2024-08-15,budget,0.0,False,False,False,Found a cheaper alternative.
+CE-109948ec,A-00d9f1,2021-09-24,unknown,0.0,False,False,False,Found a cheaper alternative.
+CE-faa23092,A-71c2db,2022-02-17,features,0.0,False,False,False,Found a cheaper alternative.
+CE-916a5ff8,A-f60e4b,2024-06-12,support,0.0,False,True,False,Budget cuts forced us to cancel.
+CE-4c4f35a8,A-ed72be,2023-01-11,budget,0.0,False,True,False,Found a cheaper alternative.
+CE-fe288e02,A-9a8bb2,2022-09-07,budget,297.59,True,False,False,Pricing increased beyond our budget.
+CE-13259eda,A-390557,2024-07-17,features,0.0,False,False,False,Pricing increased beyond our budget.
+CE-2df01f1a,A-9a9689,2023-01-20,support,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-6fdcad25,A-04a246,2024-09-06,support,0.0,False,False,False,
+CE-2e731738,A-7b1bc8,2023-06-16,unknown,0.0,False,True,False,Pricing increased beyond our budget.
+CE-ac3d4933,A-4182b6,2021-03-10,features,0.0,False,True,False,Found a cheaper alternative.
+CE-a1ff7efe,A-2312e2,2021-10-13,competitor,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-9010a69e,A-21c968,2023-04-29,competitor,0.0,False,False,False,Team no longer needed this functionality.
+CE-079904be,A-46fc8d,2024-04-09,pricing,0.0,True,False,False,Product lacked key features we needed.
+CE-d41ec413,A-85a76f,2024-07-20,features,0.0,True,False,False,Team no longer needed this functionality.
+CE-7314ad63,A-57e924,2021-01-14,features,0.0,False,False,False,Found a cheaper alternative.
+CE-f4c942a4,A-02fad5,2021-12-26,features,0.0,False,False,False,Support response times were too slow.
+CE-d6c12e28,A-641031,2024-12-01,competitor,0.0,False,False,False,Pricing increased beyond our budget.
+CE-c38ff16c,A-29838a,2021-04-12,support,487.27,False,False,False,Tool didn't integrate well with our stack.
+CE-bb30bfb3,A-82c3e3,2023-09-28,budget,492.86,False,False,True,Support response times were too slow.
+CE-5f02e8ee,A-2b8e44,2023-03-30,unknown,0.0,False,True,True,Team no longer needed this functionality.
+CE-e7a58414,A-a722ec,2021-02-13,budget,0.0,False,False,False,Support response times were too slow.
+CE-4c690ce9,A-09489d,2021-07-18,support,361.84,False,False,False,Found a cheaper alternative.
+CE-aacc8ef0,A-0e6fb8,2021-01-25,competitor,436.61,False,False,False,Pricing increased beyond our budget.
+CE-36b75d95,A-85a76f,2021-06-14,support,448.96,False,False,False,Product lacked key features we needed.
+CE-819b555e,A-2b45e5,2024-03-20,pricing,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-96b6e789,A-ab8f61,2022-10-10,features,138.26,False,False,False,Budget cuts forced us to cancel.
+CE-3150f6a8,A-205093,2024-12-31,budget,0.0,False,True,False,Found a cheaper alternative.
+CE-f02daa04,A-45687e,2021-10-23,unknown,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-ef854bf7,A-c32b0a,2023-07-10,budget,0.0,False,False,False,Team no longer needed this functionality.
+CE-a8f0290c,A-a2e816,2022-08-02,support,0.0,False,False,True,Found a cheaper alternative.
+CE-23dbf10f,A-0562c3,2023-05-01,pricing,0.0,False,False,True,Product lacked key features we needed.
+CE-9d488ade,A-66d8db,2024-05-03,features,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-970fa2c4,A-7cb77a,2023-02-26,budget,0.0,False,False,False,
+CE-91224e18,A-f3890c,2024-10-06,budget,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-39fa917f,A-7c73b8,2024-09-09,support,366.8,False,False,False,Team no longer needed this functionality.
+CE-cb7bbe65,A-e1fa7f,2022-08-29,competitor,0.0,False,False,False,Pricing increased beyond our budget.
+CE-6e045fc7,A-a2a361,2024-10-02,unknown,56.69,True,False,False,Product lacked key features we needed.
+CE-9d8e7509,A-8d94af,2023-09-21,competitor,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-100ab533,A-5e8a5d,2021-10-14,features,0.0,True,False,True,Team no longer needed this functionality.
+CE-b4949eb3,A-adedd2,2021-04-22,features,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-f6d323fe,A-f89626,2022-09-22,unknown,436.35,False,False,True,Support response times were too slow.
+CE-4f1e7ffe,A-825eb0,2022-05-29,competitor,0.0,True,False,True,Product lacked key features we needed.
+CE-a9c60062,A-4983af,2022-10-10,features,0.0,False,False,False,Support response times were too slow.
+CE-cc836eda,A-6cb2ce,2021-11-29,support,0.0,False,False,False,Pricing increased beyond our budget.
+CE-c6054445,A-a721c1,2024-12-06,unknown,210.48,False,False,False,Tool didn't integrate well with our stack.
+CE-4ca2eba0,A-0268ce,2023-04-04,competitor,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-76e2deb1,A-70da28,2022-06-24,budget,0.0,False,True,False,Tool didn't integrate well with our stack.
+CE-b6497523,A-4f71e8,2023-03-08,unknown,222.95,False,False,False,Product lacked key features we needed.
+CE-b1d42409,A-99995c,2021-09-27,competitor,0.0,False,False,False,Team no longer needed this functionality.
+CE-8af9fbbf,A-891867,2022-01-05,unknown,443.77,False,False,False,Tool didn't integrate well with our stack.
+CE-bf8c9691,A-6df3cb,2021-09-03,competitor,107.44,True,False,False,Found a cheaper alternative.
+CE-cc324346,A-720f79,2024-12-26,pricing,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-7171d427,A-16905a,2024-03-28,unknown,6.58,False,False,False,Pricing increased beyond our budget.
+CE-f4c978b8,A-2c1987,2021-01-24,budget,0.0,False,False,True,Budget cuts forced us to cancel.
+CE-eb485b03,A-90b550,2023-06-29,support,0.0,False,True,True,Pricing increased beyond our budget.
+CE-dac18645,A-2411d9,2022-01-25,pricing,464.48,False,False,False,Support response times were too slow.
+CE-6af548da,A-09489d,2024-12-23,competitor,0.0,False,False,False,Product lacked key features we needed.
+CE-1d0c1991,A-10fde3,2024-07-18,support,0.0,False,False,False,Product lacked key features we needed.
+CE-d24572aa,A-9f9cca,2022-03-04,unknown,0.0,False,False,False,
+CE-7997c28a,A-321421,2024-02-01,features,0.0,False,False,False,
+CE-e06b0052,A-b94147,2023-05-23,features,0.0,False,False,False,Pricing increased beyond our budget.
+CE-e55b5468,A-c0e2d5,2021-08-25,features,247.78,False,False,False,Team no longer needed this functionality.
+CE-f964bf28,A-5a8f35,2022-08-12,support,0.0,False,True,False,Support response times were too slow.
+CE-45629f72,A-9b417b,2022-12-19,competitor,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-c810822e,A-c32b0a,2022-05-09,unknown,0.0,False,False,False,Pricing increased beyond our budget.
+CE-9d810a51,A-393763,2021-11-03,competitor,0.0,False,False,False,Found a cheaper alternative.
+CE-8d24cfd1,A-4f71e8,2021-04-16,unknown,473.27,False,False,False,Pricing increased beyond our budget.
+CE-53874110,A-121302,2023-02-20,unknown,0.0,False,False,False,
+CE-275c8870,A-780b56,2021-01-31,features,296.04,True,False,False,Budget cuts forced us to cancel.
+CE-07840169,A-e21fc9,2021-12-19,unknown,0.0,True,False,True,Product lacked key features we needed.
+CE-77bc0a2a,A-b0fdf8,2022-04-12,unknown,0.0,False,False,False,Pricing increased beyond our budget.
+CE-50bacce9,A-891867,2022-11-03,features,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-2f0715ad,A-18470a,2023-11-30,features,0.0,True,False,False,Product lacked key features we needed.
+CE-62d7cc3e,A-f2e197,2021-04-24,pricing,87.82,False,True,False,Support response times were too slow.
+CE-061733d2,A-2e3f29,2023-11-08,support,0.0,True,False,False,Team no longer needed this functionality.
+CE-260d4552,A-87d27b,2022-06-28,competitor,0.0,False,False,False,Pricing increased beyond our budget.
+CE-e0f1ca6a,A-9a8bb2,2021-09-03,support,0.0,False,False,False,Team no longer needed this functionality.
+CE-a7d92abf,A-105528,2023-03-03,pricing,70.54,False,False,False,Product lacked key features we needed.
+CE-5b8bb18d,A-e0e84b,2021-07-07,unknown,0.0,False,False,True,Team no longer needed this functionality.
+CE-0ccddb3a,A-720f79,2021-05-20,features,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-a8e1aede,A-6cb2ce,2024-02-27,pricing,307.39,False,False,False,Pricing increased beyond our budget.
+CE-620b98e0,A-6e303f,2021-01-16,support,0.0,False,False,False,Team no longer needed this functionality.
+CE-f8670fe2,A-d07cf7,2024-05-30,budget,0.0,False,False,False,Product lacked key features we needed.
+CE-3cb979cf,A-253b47,2021-12-27,unknown,0.0,False,False,False,Found a cheaper alternative.
+CE-2df7199f,A-66d8db,2023-01-04,budget,193.15,True,False,False,Tool didn't integrate well with our stack.
+CE-79c7f1e8,A-eca077,2023-09-16,features,0.0,False,False,False,
+CE-d26c86fc,A-40abca,2024-01-17,support,0.0,False,False,False,
+CE-04d7c819,A-adedd2,2024-01-03,unknown,0.0,True,False,True,Found a cheaper alternative.
+CE-5768883a,A-c402fb,2024-08-31,pricing,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-ccc6600c,A-001d08,2021-04-03,features,26.32,False,False,False,Pricing increased beyond our budget.
+CE-5b0c33a3,A-95248b,2024-04-09,pricing,0.0,False,False,False,
+CE-7b86756b,A-0dd367,2023-09-05,competitor,0.0,False,False,False,Support response times were too slow.
+CE-4f9cdfcf,A-d98759,2021-05-27,features,0.0,False,False,True,Product lacked key features we needed.
+CE-7fe7c125,A-274168,2024-08-01,support,498.87,False,False,False,Support response times were too slow.
+CE-ce9fe095,A-df92d4,2023-07-31,budget,0.0,False,False,True,Tool didn't integrate well with our stack.
+CE-d1aab4a6,A-3a19f8,2024-07-22,support,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-1e3be7ec,A-2bcd7c,2022-08-24,features,0.0,False,True,True,Tool didn't integrate well with our stack.
+CE-712be5e1,A-cddcac,2022-12-26,support,345.04,False,True,False,
+CE-282bd556,A-b81b20,2022-07-28,competitor,0.0,False,False,False,Pricing increased beyond our budget.
+CE-c61bdefb,A-2c850e,2021-11-07,support,0.0,False,False,False,Found a cheaper alternative.
+CE-fb4576ee,A-9b151e,2023-06-09,features,0.0,False,False,False,
+CE-39a49e60,A-f56c83,2024-10-13,pricing,0.0,False,True,False,Team no longer needed this functionality.
+CE-1ba2e97d,A-dc726d,2021-06-28,features,0.0,True,False,False,Budget cuts forced us to cancel.
+CE-fd30f4a2,A-253b47,2022-05-07,competitor,0.0,False,False,False,Team no longer needed this functionality.
+CE-5ff89ee1,A-2411d9,2024-09-16,budget,0.0,False,True,False,Product lacked key features we needed.
+CE-15eaff63,A-ba7802,2024-02-15,features,0.0,False,False,False,Product lacked key features we needed.
+CE-2257db10,A-275a5e,2021-04-03,competitor,0.0,True,False,False,Team no longer needed this functionality.
+CE-ceeda1f6,A-70da28,2021-06-02,competitor,0.0,True,True,False,Tool didn't integrate well with our stack.
+CE-98fe0a17,A-99203a,2024-11-22,pricing,0.0,False,False,False,Product lacked key features we needed.
+CE-790df3eb,A-3a41b2,2024-12-03,support,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-39a31ae1,A-715861,2024-02-25,unknown,0.0,False,False,False,
+CE-3a3c083c,A-8a2dcf,2022-11-01,competitor,111.0,False,False,False,Product lacked key features we needed.
+CE-fe54a558,A-49535d,2021-11-26,pricing,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-f6e2bce3,A-ca5e0e,2022-06-16,competitor,0.0,True,False,False,Team no longer needed this functionality.
+CE-0186ba19,A-bf83ac,2021-11-23,competitor,0.0,False,False,False,Product lacked key features we needed.
+CE-8010b784,A-f4fe1f,2023-05-19,competitor,0.0,False,False,False,Team no longer needed this functionality.
+CE-09aaf770,A-299f66,2024-11-19,features,0.0,False,False,False,Support response times were too slow.
+CE-49c39221,A-8f00d8,2023-03-18,unknown,272.83,False,True,False,Support response times were too slow.
+CE-3df07f1f,A-3204d3,2022-10-21,budget,0.0,False,True,False,Product lacked key features we needed.
+CE-d8f9a6cb,A-2b45e5,2021-11-27,unknown,0.0,True,False,False,Support response times were too slow.
+CE-6efdd5a4,A-66ee96,2022-09-06,competitor,0.0,False,False,False,Product lacked key features we needed.
+CE-4cf0921c,A-3841e3,2023-03-09,support,0.0,False,False,False,Found a cheaper alternative.
+CE-730021dd,A-77d382,2021-06-16,support,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-9ecf93db,A-671cbf,2022-02-22,support,0.0,False,True,False,Found a cheaper alternative.
+CE-9539a465,A-aeac12,2024-12-08,budget,0.0,False,False,False,Pricing increased beyond our budget.
+CE-bc4fe744,A-8f8cfc,2021-09-04,features,460.37,False,False,True,Tool didn't integrate well with our stack.
+CE-84aa6c54,A-09489d,2021-05-16,unknown,0.0,False,False,True,Support response times were too slow.
+CE-908f0aa2,A-2c850e,2024-01-19,features,0.0,False,False,False,Support response times were too slow.
+CE-65568b3e,A-e1796c,2021-05-04,features,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-6dacb384,A-a81600,2023-08-25,budget,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-4fcb4123,A-d87876,2022-10-22,unknown,22.24,False,True,False,Pricing increased beyond our budget.
+CE-2c116773,A-a721c1,2024-04-29,budget,0.0,True,False,False,Support response times were too slow.
+CE-7aa83e23,A-31dcb8,2023-02-26,support,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-7c139d4b,A-3ea8a3,2022-08-04,support,0.0,False,False,False,Support response times were too slow.
+CE-2ca0fe83,A-b0fdf8,2024-08-11,budget,0.0,False,False,False,
+CE-6faff9d7,A-3a3477,2022-05-19,support,0.0,False,False,False,Product lacked key features we needed.
+CE-be7e0201,A-488393,2024-11-17,support,0.0,True,True,False,Team no longer needed this functionality.
+CE-2cb9e9d6,A-df2118,2024-09-12,pricing,0.0,False,True,False,Tool didn't integrate well with our stack.
+CE-e32d0450,A-118777,2022-05-01,unknown,327.82,False,False,False,Team no longer needed this functionality.
+CE-1a7309c8,A-3a3477,2021-03-16,support,343.46,False,False,False,Support response times were too slow.
+CE-4bd32146,A-29b014,2022-01-08,features,0.0,False,False,False,Found a cheaper alternative.
+CE-2fd94f39,A-d766b2,2023-10-02,pricing,0.0,False,False,False,Found a cheaper alternative.
+CE-980bc47d,A-fdeda5,2024-03-01,competitor,0.0,False,False,False,Product lacked key features we needed.
+CE-f93ca0ff,A-9aab82,2021-05-22,features,0.0,False,False,False,
+CE-6e7b6802,A-b56ab1,2022-02-08,competitor,0.0,True,False,False,Budget cuts forced us to cancel.
+CE-93950e96,A-9e9f30,2024-11-17,pricing,0.0,False,False,True,Team no longer needed this functionality.
+CE-e50c3066,A-2c850e,2023-02-06,features,0.0,False,False,False,
+CE-e7a63131,A-703310,2022-10-19,support,0.0,False,False,False,Product lacked key features we needed.
+CE-d7a5b786,A-98ae9b,2024-11-26,support,0.0,False,False,True,Product lacked key features we needed.
+CE-ce36a839,A-b94147,2022-04-24,features,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-9810713f,A-430daf,2024-07-30,features,0.0,False,False,False,Support response times were too slow.
+CE-b67d9a82,A-626bb3,2021-01-15,pricing,18.01,True,False,False,Support response times were too slow.
+CE-9cf73b2e,A-fd8d1b,2022-06-20,budget,153.53,False,False,False,Found a cheaper alternative.
+CE-ec34d8b7,A-9f521d,2021-01-14,support,0.0,True,True,False,Found a cheaper alternative.
+CE-c2b24c06,A-85322a,2024-05-07,unknown,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-65ef943e,A-dabc1b,2021-03-31,support,173.98,False,False,False,Support response times were too slow.
+CE-3c32d837,A-51ca60,2023-03-04,support,0.0,False,False,True,Support response times were too slow.
+CE-4bca7099,A-314379,2024-08-08,pricing,0.0,False,False,False,Found a cheaper alternative.
+CE-e745ae6c,A-e1fa7f,2023-04-15,features,0.0,True,False,False,Team no longer needed this functionality.
+CE-4fd8e0f2,A-410148,2021-01-22,competitor,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-1d608106,A-8f00d8,2021-11-21,budget,0.0,False,True,False,Support response times were too slow.
+CE-42334ce4,A-a771e3,2023-02-27,features,0.0,True,False,False,Product lacked key features we needed.
+CE-40a7b9ce,A-d5772f,2023-07-02,support,213.49,False,False,False,Tool didn't integrate well with our stack.
+CE-f344fb6b,A-cc4e00,2021-02-08,features,0.0,False,True,False,Team no longer needed this functionality.
+CE-48e5d0a7,A-9e9f30,2021-12-29,competitor,100.53,False,False,False,Found a cheaper alternative.
+CE-8150adf7,A-f6b94c,2023-12-04,features,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-a4293beb,A-7f7de2,2021-07-17,pricing,0.0,False,False,False,
+CE-1d3a3946,A-64ddde,2023-04-23,competitor,0.0,False,False,False,Budget cuts forced us to cancel.
+CE-98aa1e79,A-f3890c,2021-12-31,features,346.3,False,False,False,Budget cuts forced us to cancel.
+CE-0dc07c2e,A-9f521d,2023-09-22,features,0.0,False,False,False,Pricing increased beyond our budget.
+CE-8d1d6974,A-e1b1a4,2022-09-25,features,287.91,True,True,False,Team no longer needed this functionality.
+CE-29b84f2c,A-d5aaf6,2024-04-05,budget,479.49,False,True,False,Tool didn't integrate well with our stack.
+CE-ca55eacc,A-4ef13f,2022-08-04,features,0.0,False,False,True,Found a cheaper alternative.
+CE-5c4cbd83,A-67e8d1,2023-01-10,pricing,484.75,False,True,False,Team no longer needed this functionality.
+CE-8479ffde,A-45a1c6,2024-05-11,support,0.0,True,False,False,
+CE-6a8a7a75,A-cf45d3,2023-02-25,pricing,0.0,False,True,False,Product lacked key features we needed.
+CE-302fe4d1,A-f60e4b,2023-12-05,budget,0.0,False,False,False,Product lacked key features we needed.
+CE-cab10a09,A-abbbd0,2024-08-04,features,0.0,False,False,False,Product lacked key features we needed.
+CE-fc56e9bd,A-205093,2021-06-13,features,0.0,False,False,False,Pricing increased beyond our budget.
+CE-8e9f0474,A-c402fb,2021-12-09,budget,0.0,False,False,False,Pricing increased beyond our budget.
+CE-37459599,A-c4599d,2023-07-07,pricing,0.0,False,False,False,Team no longer needed this functionality.
+CE-a02d5aea,A-ba7802,2022-11-03,competitor,233.8,True,False,False,Budget cuts forced us to cancel.
+CE-dc3155b6,A-a91287,2023-11-03,pricing,304.57,False,True,False,Pricing increased beyond our budget.
+CE-30f10c04,A-2ca16b,2023-05-13,features,0.0,False,False,False,Tool didn't integrate well with our stack.
+CE-7dd142fb,A-8a2dcf,2021-01-29,features,65.27,True,False,False,Product lacked key features we needed.
+CE-93d165f8,A-410bfd,2022-07-31,budget,0.0,False,False,False,Found a cheaper alternative.
+CE-d15e83a1,A-9a2c4f,2023-03-15,features,0.0,True,True,True,
+CE-cf1650d6,A-93381a,2024-07-10,competitor,367.92,False,False,False,
+CE-5d35588e,A-741acd,2023-08-28,budget,0.0,True,False,True,Pricing increased beyond our budget.
+CE-44c2efcf,A-b2adb9,2021-12-09,unknown,0.0,False,False,False,Team no longer needed this functionality.
+CE-676d5377,A-a771e3,2021-03-17,support,0.0,False,False,False,Found a cheaper alternative.
+CE-940f629e,A-04a246,2024-10-12,competitor,0.0,False,False,False,Budget cuts forced us to cancel.
