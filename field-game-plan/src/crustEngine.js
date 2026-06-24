@@ -5,7 +5,7 @@
 // Everything here runs against the in-memory mock data, no network calls.
 // ---------------------------------------------------------------------------
 
-import { touchColor, whyReason, COVERAGE_GOAL } from "./mockData";
+import { whyReason, COVERAGE_GOAL } from "./mockData";
 
 const TIER_LABELS = { 1: "Tier 1", 2: "Tier 2", 3: "Tier 3", 4: "Tier 4", 5: "Tier 5" };
 
@@ -15,6 +15,23 @@ export const SUGGESTED_PROMPTS = [
   "Why is my #1 account ranked first?",
   "Schedule prospecting time tomorrow",
 ];
+
+// Field-cluster accounts (close to the rep's in-person meeting) get logged as
+// a Walk-in; everything else is logged as a Call — mirrors how the AE
+// actually works the list today.
+export function activityType(account) {
+  return account.distanceFromMeeting <= 1.5 ? "Walk-in" : "Call";
+}
+
+function buildLogRecord(account) {
+  const type = activityType(account);
+  return {
+    subject: `${type} — ${account.name}`,
+    type,
+    relatedTo: account.name,
+    date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+  };
+}
 
 function listAccounts(accounts, list, limit = 5) {
   return list
@@ -28,9 +45,9 @@ function coldAccounts(accounts) {
     .filter((a) => a.tier != null && a.daysSinceTouch > 60 && !a.worked)
     .sort((a, b) => b.daysSinceTouch - a.daysSinceTouch);
   if (cold.length === 0) {
-    return "Nice — nothing is over 60 days cold right now. Your coverage is in good shape.";
+    return "Nothing is over 60 days cold right now — you're in good shape.";
   }
-  return `You've got ${cold.length} accounts going cold (60+ days, no activity):\n\n${listAccounts(accounts, cold)}${
+  return `${cold.length} accounts are going cold (60+ days, no activity):\n\n${listAccounts(accounts, cold)}${
     cold.length > 5 ? `\n…and ${cold.length - 5} more.` : ""
   }`;
 }
@@ -39,7 +56,7 @@ function biggestGap(coverage) {
   const entries = Object.entries(coverage).map(([tier, pct]) => ({ tier: Number(tier), pct, gap: COVERAGE_GOAL - pct }));
   entries.sort((a, b) => b.gap - a.gap);
   const worst = entries[0];
-  return `Your biggest coverage gap is ${TIER_LABELS[worst.tier]} at ${worst.pct}% — that's ${worst.gap} points below the ${COVERAGE_GOAL}% goal. Want me to suggest ${TIER_LABELS[worst.tier]} accounts to work today?`;
+  return `${TIER_LABELS[worst.tier]} is your biggest gap at ${worst.pct}% — ${worst.gap} points below the ${COVERAGE_GOAL}% goal. Want a few accounts to work today?`;
 }
 
 function tierSuggestions(accounts, coverage) {
@@ -57,7 +74,7 @@ function tierSuggestions(accounts, coverage) {
 function explainTopRank(ranked) {
   if (ranked.length === 0) return "I don't see any ranked accounts yet.";
   const top = ranked[0];
-  return `${top.name} is ranked #1 because: ${whyReason(top)}. That combination of tier, days cold, and proximity to your 1 PM gives it the highest priority score (${Math.round(top.score)}).`;
+  return `${top.name} is ranked #1 because: ${whyReason(top)}. That mix of tier, days cold, and proximity to your next meeting gives it the highest priority score (${Math.round(top.score)}).`;
 }
 
 function explainAccount(accounts, ranked, name) {
@@ -88,46 +105,10 @@ function buildPendingEvent(seed) {
   };
 }
 
-// Proactive suggestions: Crust surfaces these unprompted (on load) as cards
-// the AE must approve or dismiss, rather than waiting to be asked. Each
-// suggestion carries the action to run on approval.
-export function buildProactiveSuggestions(ctx) {
-  const { accounts, coverage, calendarEventCount } = ctx;
-  const suggestions = [];
-
-  const entries = Object.entries(coverage).map(([tier, pct]) => ({ tier: Number(tier), pct }));
-  entries.sort((a, b) => a.pct - b.pct);
-  const worstTier = entries[0].tier;
-  const targets = accounts
-    .filter((a) => a.tier === worstTier && !a.worked)
-    .sort((a, b) => b.daysSinceTouch - a.daysSinceTouch)
-    .slice(0, 3);
-
-  if (targets.length > 0) {
-    suggestions.push({
-      id: `suggest-tier-${worstTier}`,
-      text: `${TIER_LABELS[worstTier]} is your biggest coverage gap (${coverage[worstTier]}% vs. ${COVERAGE_GOAL}% goal). I'd suggest working ${targets.map((a) => a.name).join(", ")} today.`,
-      approveLabel: `Mark ${targets.length} as worked`,
-      action: { type: "mark-worked-bulk", ids: targets.map((a) => a.id) },
-    });
-  }
-
-  const cold = accounts.filter((a) => a.tier != null && a.daysSinceTouch > 90 && !a.worked);
-  if (cold.length > 0) {
-    suggestions.push({
-      id: "suggest-schedule",
-      text: `You have ${cold.length} accounts that have gone cold for 90+ days. I'd like to book a prospecting block to work through them.`,
-      approveLabel: "Book prospecting block",
-      action: { type: "schedule-block", event: buildPendingEvent(calendarEventCount + 1) },
-    });
-  }
-
-  return suggestions;
-}
-
 // Parses free text / chip clicks into an intent + response.
-// Returns { reply, action } where action is one of:
-//   null | { type: "mark-worked", id } | { type: "schedule-block" }
+// Returns { reply, action, log } where action is one of:
+//   null | { type: "mark-worked", id } | { type: "schedule-block", event }
+// and log (when present) is a mocked Salesforce Task record to render inline.
 export function handleMessage(text, ctx) {
   const { accounts, ranked, coverage, calendarEventCount } = ctx;
   const t = text.trim().toLowerCase();
@@ -160,15 +141,16 @@ export function handleMessage(text, ctx) {
       return { reply: `I couldn't find an unworked account matching "${markMatch[1]}".`, action: null };
     }
     return {
-      reply: `Done — logged a touch on ${acct.name} and bumped ${TIER_LABELS[acct.tier] || "its"} coverage.`,
+      reply: `Logged it — synced to Salesforce as a ${activityType(acct)}.`,
       action: { type: "mark-worked", id: acct.id },
+      log: buildLogRecord(acct),
     };
   }
 
   if (/schedule|book.*time|prospecting time|block.*calendar/.test(t)) {
     const event = buildPendingEvent(calendarEventCount);
     return {
-      reply: `I've requested a prospecting block at ${event.time} on your Google Calendar — it's pending your approval, check the calendar strip above.`,
+      reply: `I've requested a prospecting block at ${event.time} on your Google Calendar — pending your approval.`,
       action: { type: "schedule-block", event },
     };
   }
@@ -178,4 +160,42 @@ export function handleMessage(text, ctx) {
       "I can help with coverage gaps, cold accounts, ranking explanations, marking accounts worked, or scheduling prospecting time. Try one of the suggestions below, or ask me directly.",
     action: null,
   };
+}
+
+// Proactive suggestions: Crust surfaces these unprompted (on load) as cards
+// the AE must approve or dismiss, rather than waiting to be asked. Each
+// suggestion carries the action to run on approval.
+export function buildProactiveSuggestions(ctx) {
+  const { accounts, coverage, calendarEventCount } = ctx;
+  const suggestions = [];
+
+  const entries = Object.entries(coverage).map(([tier, pct]) => ({ tier: Number(tier), pct }));
+  entries.sort((a, b) => a.pct - b.pct);
+  const worstTier = entries[0].tier;
+  const targets = accounts
+    .filter((a) => a.tier === worstTier && !a.worked)
+    .sort((a, b) => b.daysSinceTouch - a.daysSinceTouch)
+    .slice(0, 3);
+
+  if (targets.length > 0) {
+    suggestions.push({
+      id: `suggest-tier-${worstTier}`,
+      text: `${TIER_LABELS[worstTier]} is your biggest coverage gap (${coverage[worstTier]}% vs. ${COVERAGE_GOAL}% goal). I'd suggest working ${targets.map((a) => a.name).join(", ")} today.`,
+      approveLabel: `Mark ${targets.length} as worked`,
+      action: { type: "mark-worked-bulk", ids: targets.map((a) => a.id) },
+      logs: targets.map(buildLogRecord),
+    });
+  }
+
+  const cold = accounts.filter((a) => a.tier != null && a.daysSinceTouch > 90 && !a.worked);
+  if (cold.length > 0) {
+    suggestions.push({
+      id: "suggest-schedule",
+      text: `You have ${cold.length} accounts that have gone cold for 90+ days. I'd like to book a prospecting block to work through them.`,
+      approveLabel: "Book prospecting block",
+      action: { type: "schedule-block", event: buildPendingEvent(calendarEventCount + 1) },
+    });
+  }
+
+  return suggestions;
 }
