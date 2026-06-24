@@ -358,65 +358,12 @@ export function buildProactiveSuggestions(ctx) {
     });
   }
 
-  // 3. High-fit accounts starting to go quiet — protect the relationship
-  const highFitQuiet = accounts
-    .filter((a) => a.tier != null && a.fit >= 85 && a.daysSinceTouch > 30 && !a.worked)
-    .sort((a, b) => b.fit - a.fit)
-    .slice(0, 3);
-  if (highFitQuiet.length > 0) {
-    suggestions.push({
-      id: "suggest-high-fit",
-      text: `${highFitQuiet.map((a) => a.name).join(", ")} ${highFitQuiet.length === 1 ? "is" : "are"} high-fit (85+) but going quiet. Worth reconnecting before they slip.`,
-      approveLabel: `Mark ${highFitQuiet.length} as worked`,
-      action: { type: "mark-worked-bulk", ids: highFitQuiet.map((a) => a.id) },
-      logs: highFitQuiet.map(buildLogRecord),
-    });
-  }
-
-  // 4. Field cluster — unworked accounts within walking distance of today's meeting
-  const cluster = accounts.filter((a) => a.distanceFromMeeting <= 1.5 && !a.worked).slice(0, 3);
-  if (cluster.length > 0) {
-    suggestions.push({
-      id: "suggest-cluster",
-      text: `${cluster.length} accounts are within walking distance of today's field meeting: ${cluster.map((a) => a.name).join(", ")}. Want to add them as walk-in stops?`,
-      approveLabel: `Mark ${cluster.length} as worked`,
-      action: { type: "mark-worked-bulk", ids: cluster.map((a) => a.id) },
-      logs: cluster.map(buildLogRecord),
-    });
-  }
-
-  // 5. Quick-win follow-ups — warm, high-fit accounts
-  const quickWinTargets = accounts
-    .filter((a) => a.tier != null && a.daysSinceTouch < 14 && !a.worked && a.fit >= 70)
-    .sort((a, b) => b.fit - a.fit)
-    .slice(0, 3);
-  if (quickWinTargets.length > 0) {
-    suggestions.push({
-      id: "suggest-quick-win",
-      text: `${quickWinTargets.map((a) => a.name).join(", ")} are warm and high-fit — good quick-win follow-ups to close today.`,
-      approveLabel: `Mark ${quickWinTargets.length} as worked`,
-      action: { type: "mark-worked-bulk", ids: quickWinTargets.map((a) => a.id) },
-      logs: quickWinTargets.map(buildLogRecord),
-    });
-  }
-
-  // 6. Newly onboarded / unscored accounts needing first outreach
-  const unscored = accounts.filter((a) => a.tier == null && !a.worked).slice(0, 3);
-  if (unscored.length > 0) {
-    suggestions.push({
-      id: "suggest-unscored",
-      text: `${unscored.map((a) => a.name).join(", ")} ${unscored.length === 1 ? "is a" : "are"} newly onboarded and still unscored. I'd recommend booking time for first outreach before they cool off.`,
-      approveLabel: "Book prospecting block",
-      action: { type: "schedule-block", event: buildPendingEvent(seed++, "First outreach block — booked by Crust") },
-    });
-  }
-
-  // 7. Manager/colleague deadlines from Slack or email — block focus time
+  // 3. Manager/colleague deadlines from Slack or email — block focus time
   const deadlines = deadlineSuggestions(slackMessages, emails, seed);
   seed += deadlines.length;
   suggestions.push(...deadlines);
 
-  // 8. Meeting requests from Slack or email — hold time on the calendar
+  // 4. Meeting requests from Slack or email — hold time on the calendar
   suggestions.push(...meetingRequestSuggestions(slackMessages, emails, seed));
 
   return suggestions;
