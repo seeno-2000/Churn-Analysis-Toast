@@ -1,20 +1,30 @@
 import { useState, useRef, useEffect } from "react";
-import { SUGGESTED_PROMPTS, handleMessage } from "./crustEngine";
+import { SUGGESTED_PROMPTS, handleMessage, buildProactiveSuggestions } from "./crustEngine";
 
 const WELCOME = {
   role: "assistant",
-  text: "Hey! I'm Crust 🍞 — ask me about coverage gaps, cold accounts, or rankings, and I can mark accounts worked or book prospecting time for you.",
+  text: "Hey! I'm Crust 🍞 — I keep an eye on your coverage and calendar, and I'll flag things for you to approve. You can also ask me anything directly.",
 };
 
 export default function Crust({ accounts, ranked, coverage, calendarEventCount, onMarkWorked, onScheduleBlock }) {
   const [open, setOpen] = useState(true);
   const [messages, setMessages] = useState([WELCOME]);
+  const [suggestions, setSuggestions] = useState([]);
   const [input, setInput] = useState("");
   const scrollRef = useRef(null);
+  const seededRef = useRef(false);
+
+  useEffect(() => {
+    if (seededRef.current) return;
+    seededRef.current = true;
+    const proactive = buildProactiveSuggestions({ accounts, coverage, calendarEventCount });
+    setSuggestions(proactive);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages]);
+  }, [messages, suggestions]);
 
   function send(text) {
     if (!text.trim()) return;
@@ -23,6 +33,21 @@ export default function Crust({ accounts, ranked, coverage, calendarEventCount, 
     setInput("");
     if (action?.type === "mark-worked") onMarkWorked(action.id);
     if (action?.type === "schedule-block") onScheduleBlock(action.event);
+  }
+
+  function approveSuggestion(s) {
+    setSuggestions((prev) => prev.filter((x) => x.id !== s.id));
+    setMessages((prev) => [...prev, { role: "assistant", text: `✓ Approved — ${s.approveLabel.toLowerCase()}.` }]);
+    if (s.action.type === "mark-worked-bulk") {
+      s.action.ids.forEach((id) => onMarkWorked(id));
+    }
+    if (s.action.type === "schedule-block") {
+      onScheduleBlock(s.action.event);
+    }
+  }
+
+  function dismissSuggestion(s) {
+    setSuggestions((prev) => prev.filter((x) => x.id !== s.id));
   }
 
   return (
@@ -44,6 +69,20 @@ export default function Crust({ accounts, ranked, coverage, calendarEventCount, 
             {messages.map((m, i) => (
               <div key={i} className={`crust-msg crust-msg-${m.role}`}>
                 {m.text}
+              </div>
+            ))}
+            {suggestions.map((s) => (
+              <div key={s.id} className="crust-suggestion">
+                <div className="crust-suggestion-label">Crust suggests</div>
+                <div className="crust-suggestion-text">{s.text}</div>
+                <div className="crust-suggestion-actions">
+                  <button className="crust-approve" onClick={() => approveSuggestion(s)}>
+                    {s.approveLabel}
+                  </button>
+                  <button className="crust-dismiss" onClick={() => dismissSuggestion(s)}>
+                    Dismiss
+                  </button>
+                </div>
               </div>
             ))}
           </div>

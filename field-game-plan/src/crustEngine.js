@@ -88,6 +88,43 @@ function buildPendingEvent(seed) {
   };
 }
 
+// Proactive suggestions: Crust surfaces these unprompted (on load) as cards
+// the AE must approve or dismiss, rather than waiting to be asked. Each
+// suggestion carries the action to run on approval.
+export function buildProactiveSuggestions(ctx) {
+  const { accounts, coverage, calendarEventCount } = ctx;
+  const suggestions = [];
+
+  const entries = Object.entries(coverage).map(([tier, pct]) => ({ tier: Number(tier), pct }));
+  entries.sort((a, b) => a.pct - b.pct);
+  const worstTier = entries[0].tier;
+  const targets = accounts
+    .filter((a) => a.tier === worstTier && !a.worked)
+    .sort((a, b) => b.daysSinceTouch - a.daysSinceTouch)
+    .slice(0, 3);
+
+  if (targets.length > 0) {
+    suggestions.push({
+      id: `suggest-tier-${worstTier}`,
+      text: `${TIER_LABELS[worstTier]} is your biggest coverage gap (${coverage[worstTier]}% vs. ${COVERAGE_GOAL}% goal). I'd suggest working ${targets.map((a) => a.name).join(", ")} today.`,
+      approveLabel: `Mark ${targets.length} as worked`,
+      action: { type: "mark-worked-bulk", ids: targets.map((a) => a.id) },
+    });
+  }
+
+  const cold = accounts.filter((a) => a.tier != null && a.daysSinceTouch > 90 && !a.worked);
+  if (cold.length > 0) {
+    suggestions.push({
+      id: "suggest-schedule",
+      text: `You have ${cold.length} accounts that have gone cold for 90+ days. I'd like to book a prospecting block to work through them.`,
+      approveLabel: "Book prospecting block",
+      action: { type: "schedule-block", event: buildPendingEvent(calendarEventCount + 1) },
+    });
+  }
+
+  return suggestions;
+}
+
 // Parses free text / chip clicks into an intent + response.
 // Returns { reply, action } where action is one of:
 //   null | { type: "mark-worked", id } | { type: "schedule-block" }

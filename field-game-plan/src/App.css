@@ -587,6 +587,61 @@ body {
   border-bottom-right-radius: 4px;
 }
 
+.crust-suggestion {
+  align-self: stretch;
+  background: #fff6f1;
+  border: 1px solid var(--toast);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.crust-suggestion-label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--toast-dark);
+  margin-bottom: 6px;
+}
+
+.crust-suggestion-text {
+  font-size: 13px;
+  color: var(--gray-900);
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
+.crust-suggestion-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.crust-approve {
+  background: var(--toast);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.crust-approve:hover {
+  background: var(--toast-dark);
+}
+
+.crust-dismiss {
+  background: white;
+  color: var(--gray-700);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .crust-chips {
   display: flex;
   flex-wrap: wrap;
