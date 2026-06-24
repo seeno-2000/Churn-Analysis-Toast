@@ -35,7 +35,7 @@ function SalesforceLogCard({ log }) {
 
 export default function Crust({ accounts, ranked, coverage, calendarEventCount, onMarkWorked, onScheduleBlock }) {
   const [messages, setMessages] = useState([{ ...WELCOME, id: "welcome" }]);
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestionQueue, setSuggestionQueue] = useState([]);
   const [input, setInput] = useState("");
   const scrollRef = useRef(null);
   const seededRef = useRef(false);
@@ -43,18 +43,15 @@ export default function Crust({ accounts, ranked, coverage, calendarEventCount, 
   useEffect(() => {
     if (seededRef.current) return;
     seededRef.current = true;
-    const queue = buildProactiveSuggestions({ accounts, coverage, calendarEventCount });
-    queue.forEach((s, i) => {
-      setTimeout(() => {
-        setSuggestions((prev) => [...prev, s]);
-      }, 900 * (i + 1));
-    });
+    setSuggestionQueue(buildProactiveSuggestions({ accounts, coverage, calendarEventCount }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const currentSuggestion = suggestionQueue[0];
+
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, suggestions]);
+  }, [messages, currentSuggestion]);
 
   function pushMessage(msg) {
     setMessages((prev) => [...prev, { ...msg, id: `${Date.now()}-${Math.random()}` }]);
@@ -72,7 +69,7 @@ export default function Crust({ accounts, ranked, coverage, calendarEventCount, 
   }
 
   function approveSuggestion(s) {
-    setSuggestions((prev) => prev.filter((x) => x.id !== s.id));
+    setSuggestionQueue((prev) => prev.filter((x) => x.id !== s.id));
     pushMessage({ role: "assistant", text: `Approved — ${s.approveLabel.toLowerCase()}.` });
     if (s.action.type === "mark-worked-bulk") {
       s.action.ids.forEach((id) => onMarkWorked(id));
@@ -84,7 +81,7 @@ export default function Crust({ accounts, ranked, coverage, calendarEventCount, 
   }
 
   function dismissSuggestion(s) {
-    setSuggestions((prev) => prev.filter((x) => x.id !== s.id));
+    setSuggestionQueue((prev) => prev.filter((x) => x.id !== s.id));
   }
 
   return (
@@ -97,20 +94,20 @@ export default function Crust({ accounts, ranked, coverage, calendarEventCount, 
               {m.log && <SalesforceLogCard log={m.log} />}
             </div>
           ))}
-          {suggestions.map((s) => (
-            <div key={s.id} className="crust-suggestion crust-suggestion-pop">
+          {currentSuggestion && (
+            <div key={currentSuggestion.id} className="crust-suggestion crust-suggestion-pop">
               <div className="crust-suggestion-label">Crust suggests</div>
-              <div className="crust-suggestion-text">{s.text}</div>
+              <div className="crust-suggestion-text">{currentSuggestion.text}</div>
               <div className="crust-suggestion-actions">
-                <button className="crust-approve" onClick={() => approveSuggestion(s)}>
-                  {s.approveLabel}
+                <button className="crust-approve" onClick={() => approveSuggestion(currentSuggestion)}>
+                  {currentSuggestion.approveLabel}
                 </button>
-                <button className="crust-dismiss" onClick={() => dismissSuggestion(s)}>
+                <button className="crust-dismiss" onClick={() => dismissSuggestion(currentSuggestion)}>
                   Dismiss
                 </button>
               </div>
             </div>
-          ))}
+          )}
         </div>
       </div>
 
