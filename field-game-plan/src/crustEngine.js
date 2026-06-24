@@ -18,7 +18,39 @@ export const SUGGESTED_PROMPTS = [
   "Which accounts haven't been scored yet?",
   "What are my high-fit accounts going quiet?",
   "How many accounts have I worked today?",
+  "Any Slack messages I should see?",
+  "What's in my inbox?",
 ];
+
+function personFrom(m) {
+  return m.from.split(/[<(]/)[0].trim();
+}
+
+// Slack DMs and emails sometimes come from the same person about the same
+// ask — only surface one proactive card per person so Crust doesn't nag twice.
+function dedupeByPerson(items) {
+  const seen = new Set();
+  return items.filter((m) => {
+    const key = personFrom(m).toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function slackSummary(slackMessages) {
+  if (!slackMessages || slackMessages.length === 0) return "No new Slack messages right now.";
+  return `You have ${slackMessages.length} relevant Slack message${slackMessages.length === 1 ? "" : "s"}:\n\n${slackMessages
+    .map((m) => `• ${personFrom(m)} (${m.channel}) — "${m.text}"`)
+    .join("\n")}`;
+}
+
+function emailSummary(emails) {
+  if (!emails || emails.length === 0) return "Inbox is clear of anything time-sensitive.";
+  return `${emails.length} email${emails.length === 1 ? "" : "s"} need attention:\n\n${emails
+    .map((m) => `• ${personFrom(m)} — "${m.subject}"`)
+    .join("\n")}`;
+}
 
 // Field-cluster accounts (close to the rep's in-person meeting) get logged as
 // a Walk-in; everything else is logged as a Call — mirrors how the AE
@@ -166,8 +198,16 @@ function buildPendingEvent(seed, title = "Prospecting block — booked by Crust"
 //   null | { type: "mark-worked", id } | { type: "schedule-block", event }
 // and log (when present) is a mocked Salesforce Task record to render inline.
 export function handleMessage(text, ctx) {
-  const { accounts, ranked, coverage, calendarEventCount } = ctx;
+  const { accounts, ranked, coverage, calendarEventCount, slackMessages, emails } = ctx;
   const t = text.trim().toLowerCase();
+
+  if (/slack/.test(t)) {
+    return { reply: slackSummary(slackMessages), action: null };
+  }
+
+  if (/email|inbox/.test(t)) {
+    return { reply: emailSummary(emails), action: null };
+  }
 
   if (/cold|stale|gone quiet/.test(t) && !/high.?fit/.test(t)) {
     return { reply: coldAccounts(accounts), action: null };
@@ -242,11 +282,45 @@ export function handleMessage(text, ctx) {
   };
 }
 
+function meetingRequestSuggestions(slackMessages, emails, seedStart) {
+  const requests = dedupeByPerson(
+    [...(slackMessages || []), ...(emails || [])].filter((m) => m.type === "meeting-request")
+  );
+  let seed = seedStart;
+  return requests.map((m) => {
+    const person = personFrom(m);
+    const ask = m.text || m.preview;
+    return {
+      id: `suggest-meeting-${m.id}`,
+      text: `${person} asked about setting up time${m.channel ? ` (Slack — ${m.channel})` : " (email)"}: "${ask}". Want me to hold a block on your calendar?`,
+      approveLabel: "Book the meeting",
+      action: { type: "schedule-block", event: buildPendingEvent(seed++, `Meeting — ${person}`) },
+    };
+  });
+}
+
+function deadlineSuggestions(slackMessages, emails, seedStart) {
+  const requests = dedupeByPerson(
+    [...(slackMessages || []), ...(emails || [])].filter((m) => m.type === "deadline")
+  );
+  let seed = seedStart;
+  return requests.map((m) => {
+    const person = personFrom(m);
+    const ask = m.subject || m.text;
+    return {
+      id: `suggest-deadline-${m.id}`,
+      text: `${person} needs "${ask}" by ${m.deadline}. Want me to block focus time and set a reminder so you stay on track?`,
+      approveLabel: "Block focus time",
+      action: { type: "schedule-block", event: buildPendingEvent(seed++, `Reminder — ${ask} (due ${m.deadline})`) },
+    };
+  });
+}
+
 // Proactive suggestions: Crust surfaces these unprompted (on load) as cards
 // the AE must approve or dismiss, rather than waiting to be asked. Each
 // suggestion carries the action to run on approval.
 export function buildProactiveSuggestions(ctx) {
-  const { accounts, coverage, calendarEventCount } = ctx;
+  const { accounts, coverage, calendarEventCount, slackMessages, emails } = ctx;
   const suggestions = [];
   let seed = calendarEventCount;
 
@@ -331,6 +405,14 @@ export function buildProactiveSuggestions(ctx) {
       action: { type: "schedule-block", event: buildPendingEvent(seed++, "First outreach block — booked by Crust") },
     });
   }
+
+  // 7. Manager/colleague deadlines from Slack or email — block focus time
+  const deadlines = deadlineSuggestions(slackMessages, emails, seed);
+  seed += deadlines.length;
+  suggestions.push(...deadlines);
+
+  // 8. Meeting requests from Slack or email — hold time on the calendar
+  suggestions.push(...meetingRequestSuggestions(slackMessages, emails, seed));
 
   return suggestions;
 }

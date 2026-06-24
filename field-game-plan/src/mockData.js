@@ -38,6 +38,46 @@ export const CALENDAR_EVENTS = [
   { id: "c6", time: "4:00 PM", endTime: "4:30 PM", type: "zoom", title: "Internal deal desk sync" },
 ];
 
+export const SLACK_MESSAGES = [
+  {
+    id: "slack-1",
+    from: "Dana Reyes (Manager)",
+    channel: "DM",
+    type: "deadline",
+    text: "Can you get me the Tier 4 coverage plan by Friday? Need it ahead of the QBR.",
+    deadline: "Fri",
+    time: "8:42 AM",
+  },
+  {
+    id: "slack-2",
+    from: "Marcus Lee (Tumby's Pizza HQ)",
+    channel: "#tumbys-pizza-deal",
+    type: "meeting-request",
+    text: "Hey, can we grab 20 min this week to walk through pricing? Whenever works for you.",
+    time: "9:15 AM",
+  },
+];
+
+export const EMAILS = [
+  {
+    id: "email-1",
+    from: "Priya Shah <priya.shah@toasttab.com>",
+    subject: "QBR prep — need your Tier 4 numbers",
+    type: "deadline",
+    preview: "Following up on Slack — can you send the Tier 4 coverage plan by EOD Friday?",
+    deadline: "Fri",
+    time: "8:50 AM",
+  },
+  {
+    id: "email-2",
+    from: "Sam Ortiz <sam@goldenbirdchicken.com>",
+    subject: "Re: Pricing walkthrough",
+    type: "meeting-request",
+    preview: "Would love to set up a quick call this week to go over pricing options.",
+    time: "9:35 AM",
+  },
+];
+
 // 90% coverage goal applies to every tier.
 export const COVERAGE_GOAL = 90;
 

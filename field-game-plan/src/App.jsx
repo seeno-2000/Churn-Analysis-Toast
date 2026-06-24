@@ -4,11 +4,14 @@ import {
   REP_NAME,
   CALENDAR_EVENTS,
   STARTING_COVERAGE,
+  SLACK_MESSAGES,
+  EMAILS,
   buildAccounts,
   touchColor,
   scoreAccount,
 } from "./mockData";
 import Crust from "./Crust";
+import CrustLogo from "./CrustLogo";
 
 const TODAY = new Date().toLocaleDateString("en-US", {
   weekday: "long",
@@ -40,6 +43,18 @@ function AccountMini({ account }) {
     <div className={`account-mini ${account.worked ? "worked" : ""}`}>
       <span className="account-mini-name">{account.name}</span>
       <span className={`account-mini-touch touch-${color}`}>{account.daysSinceTouch}d</span>
+    </div>
+  );
+}
+
+function MessageMini({ from, channel, text }) {
+  return (
+    <div className="message-mini">
+      <div className="message-mini-head">
+        <span className="message-mini-from">{from.split(/[<(]/)[0].trim()}</span>
+        {channel && <span className="message-mini-channel">{channel}</span>}
+      </div>
+      <div className="message-mini-text">{text}</div>
     </div>
   );
 }
@@ -85,13 +100,18 @@ export default function App() {
         ranked={ranked}
         coverage={coverage}
         calendarEventCount={calendarEvents.length}
+        slackMessages={SLACK_MESSAGES}
+        emails={EMAILS}
         onMarkWorked={handleWork}
         onScheduleBlock={handleScheduleBlock}
       />
 
       <aside className="reference-panel">
         <div className="reference-header">
-          <div className="logo-mark">CRUST</div>
+          <div className="logo-mark-row">
+            <CrustLogo size={20} />
+            <span className="logo-mark">CRUST</span>
+          </div>
           <h1 className="reference-greeting">
             {REP_NAME} · {TODAY}
           </h1>
@@ -100,6 +120,24 @@ export default function App() {
         <div className="reference-section">
           <h2 className="reference-title">Today's Calendar</h2>
           <CalendarStrip events={calendarEvents} />
+        </div>
+
+        <div className="reference-section">
+          <h2 className="reference-title">Slack</h2>
+          <div className="message-mini-list">
+            {SLACK_MESSAGES.map((m) => (
+              <MessageMini from={m.from} channel={m.channel} text={m.text} key={m.id} />
+            ))}
+          </div>
+        </div>
+
+        <div className="reference-section">
+          <h2 className="reference-title">Email</h2>
+          <div className="message-mini-list">
+            {EMAILS.map((m) => (
+              <MessageMini from={m.from} channel={m.subject} text={m.preview} key={m.id} />
+            ))}
+          </div>
         </div>
 
         <div className="reference-section">

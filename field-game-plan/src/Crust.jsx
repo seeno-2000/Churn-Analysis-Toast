@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { SUGGESTED_PROMPTS, handleMessage, buildProactiveSuggestions } from "./crustEngine";
+import CrustLogo from "./CrustLogo";
 
 const WELCOME = {
   role: "assistant",
@@ -33,7 +34,16 @@ function SalesforceLogCard({ log }) {
   );
 }
 
-export default function Crust({ accounts, ranked, coverage, calendarEventCount, onMarkWorked, onScheduleBlock }) {
+export default function Crust({
+  accounts,
+  ranked,
+  coverage,
+  calendarEventCount,
+  slackMessages,
+  emails,
+  onMarkWorked,
+  onScheduleBlock,
+}) {
   const [messages, setMessages] = useState([{ ...WELCOME, id: "welcome" }]);
   const [suggestionQueue, setSuggestionQueue] = useState([]);
   const [input, setInput] = useState("");
@@ -43,7 +53,7 @@ export default function Crust({ accounts, ranked, coverage, calendarEventCount, 
   useEffect(() => {
     if (seededRef.current) return;
     seededRef.current = true;
-    setSuggestionQueue(buildProactiveSuggestions({ accounts, coverage, calendarEventCount }));
+    setSuggestionQueue(buildProactiveSuggestions({ accounts, coverage, calendarEventCount, slackMessages, emails }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -59,7 +69,14 @@ export default function Crust({ accounts, ranked, coverage, calendarEventCount, 
 
   function send(text) {
     if (!text.trim()) return;
-    const { reply, action, log } = handleMessage(text, { accounts, ranked, coverage, calendarEventCount });
+    const { reply, action, log } = handleMessage(text, {
+      accounts,
+      ranked,
+      coverage,
+      calendarEventCount,
+      slackMessages,
+      emails,
+    });
     pushMessage({ role: "user", text });
     pushMessage({ role: "assistant", text: reply });
     if (log) pushMessage({ role: "assistant", log });
@@ -76,7 +93,8 @@ export default function Crust({ accounts, ranked, coverage, calendarEventCount, 
       (s.logs || []).forEach((log) => pushMessage({ role: "assistant", log }));
     }
     if (s.action.type === "schedule-block") {
-      onScheduleBlock(s.action.event);
+      // Approval is the acceptance — the tentative hold becomes a real block.
+      onScheduleBlock({ ...s.action.event, pending: false });
     }
   }
 
@@ -86,6 +104,10 @@ export default function Crust({ accounts, ranked, coverage, calendarEventCount, 
 
   return (
     <div className="crust-main">
+      <div className="crust-header">
+        <CrustLogo size={22} />
+        <span className="crust-header-title">Crust</span>
+      </div>
       <div className="crust-thread" ref={scrollRef}>
         <div className="crust-thread-inner">
           {messages.map((m) => (
