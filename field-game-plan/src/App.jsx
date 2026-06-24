@@ -11,6 +11,7 @@ import {
   scoreAccount,
   whyReason,
 } from "./mockData";
+import Crust from "./Crust";
 
 const TODAY = new Date().toLocaleDateString("en-US", {
   weekday: "long",
@@ -47,11 +48,11 @@ function CoverageMeters({ coverage }) {
   );
 }
 
-function CalendarStrip() {
+function CalendarStrip({ events }) {
   return (
     <div className="calendar-strip">
-      {CALENDAR_EVENTS.map((ev) => (
-        <div className={`cal-block cal-${ev.type}`} key={ev.id}>
+      {events.map((ev) => (
+        <div className={`cal-block cal-${ev.type} ${ev.pending ? "cal-pending" : ""}`} key={ev.id}>
           <div className="cal-time">
             {ev.time}
             {ev.endTime ? ` – ${ev.endTime}` : ""}
@@ -61,6 +62,7 @@ function CalendarStrip() {
           <div className="cal-type-tag">
             {ev.type === "field" ? "In-person" : ev.type === "zoom" ? "Video" : "Phone"}
           </div>
+          {ev.pending && <div className="cal-pending-tag">Pending approval</div>}
         </div>
       ))}
     </div>
@@ -173,6 +175,7 @@ function MapView({ accounts }) {
 export default function App() {
   const [accounts, setAccounts] = useState(buildAccounts());
   const [coverage, setCoverage] = useState(STARTING_COVERAGE);
+  const [calendarEvents, setCalendarEvents] = useState(CALENDAR_EVENTS);
 
   const ranked = useMemo(() => {
     return accounts
@@ -201,9 +204,16 @@ export default function App() {
     // recalculates true coverage %. We simulate that tick here for the demo.
   }
 
+  function handleScheduleBlock(event) {
+    // Real integration point: POST a tentative event via the Google Calendar
+    // API, left in "needsAction" status until the AE accepts the invite.
+    setCalendarEvents((prev) => [...prev, event]);
+  }
+
   const workedCount = accounts.filter((a) => a.worked).length;
 
   return (
+    <div className="app-shell">
     <div className="app">
       <header className="app-header">
         <div className="header-left">
@@ -230,7 +240,7 @@ export default function App() {
       <section className="section">
         <h2 className="section-title">Today's Calendar</h2>
         <p className="section-sub">Pulled from Google Calendar &amp; Chili Piper (mocked).</p>
-        <CalendarStrip />
+        <CalendarStrip events={calendarEvents} />
       </section>
 
       <section className="section">
@@ -277,6 +287,15 @@ export default function App() {
         Field Game Plan — prototype. Account data: Salesforce → warehouse → Sigma. Calendar: Google
         Calendar + Chili Piper. Activity write-back: Salesforce Task API.
       </footer>
+    </div>
+    <Crust
+      accounts={accounts}
+      ranked={ranked}
+      coverage={coverage}
+      calendarEventCount={calendarEvents.length}
+      onMarkWorked={handleWork}
+      onScheduleBlock={handleScheduleBlock}
+    />
     </div>
   );
 }
