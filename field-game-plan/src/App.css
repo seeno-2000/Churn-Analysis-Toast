@@ -454,6 +454,63 @@ body {
   line-height: 1.4;
 }
 
+/* Approved-by-Crust tabbed lists (Fieldwork / Call List) */
+.approved-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.approved-tab {
+  flex: 1;
+  font-size: 11.5px;
+  font-weight: 700;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 8px;
+  padding: 7px 8px;
+  cursor: pointer;
+}
+
+.approved-tab.active {
+  background: var(--toast);
+  border-color: var(--toast);
+  color: white;
+}
+
+.approved-empty {
+  font-size: 11.5px;
+  color: var(--text-faint);
+  line-height: 1.5;
+}
+
+.approved-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.approved-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 4px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12.5px;
+}
+
+.approved-item-name {
+  color: var(--text);
+}
+
+.approved-item-time {
+  color: var(--text-faint);
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
 /* Condensed prospecting list */
 .account-mini-list {
   display: flex;

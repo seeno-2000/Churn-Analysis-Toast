@@ -12,6 +12,7 @@ import {
 } from "./mockData";
 import Crust from "./Crust";
 import CrustLogo from "./CrustLogo";
+import { activityType } from "./crustEngine";
 
 const TODAY = new Date().toLocaleDateString("en-US", {
   weekday: "long",
@@ -82,10 +83,48 @@ function MessageMini({ from, channel, text }) {
   );
 }
 
+// Fieldwork (Walk-in) vs Call list — populated only as the AE approves
+// accounts through Crust, so it reads like a running log for the day.
+function ApprovedLists({ approvedLog }) {
+  const [tab, setTab] = useState("Walk-in");
+  const filtered = approvedLog.filter((entry) => entry.type === tab);
+
+  return (
+    <div className="approved-lists">
+      <div className="approved-tabs">
+        <button
+          className={`approved-tab ${tab === "Walk-in" ? "active" : ""}`}
+          onClick={() => setTab("Walk-in")}
+        >
+          Fieldwork
+        </button>
+        <button className={`approved-tab ${tab === "Call" ? "active" : ""}`} onClick={() => setTab("Call")}>
+          Call List
+        </button>
+      </div>
+      {filtered.length === 0 ? (
+        <div className="approved-empty">
+          Nothing here yet — approve a Crust suggestion and it'll land in this list.
+        </div>
+      ) : (
+        <div className="approved-list">
+          {filtered.map((entry) => (
+            <div className="approved-item" key={entry.id}>
+              <span className="approved-item-name">{entry.name}</span>
+              <span className="approved-item-time">{entry.time}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function App() {
   const [accounts, setAccounts] = useState(buildAccounts());
   const [coverage, setCoverage] = useState(STARTING_COVERAGE);
   const [calendarEvents, setCalendarEvents] = useState(CALENDAR_EVENTS);
+  const [approvedLog, setApprovedLog] = useState([]);
 
   const ranked = useMemo(() => {
     return accounts
@@ -104,6 +143,17 @@ export default function App() {
         ...prev,
         [acct.tier]: Math.min(100, prev[acct.tier] + 2),
       }));
+    }
+    if (acct) {
+      setApprovedLog((prev) => [
+        ...prev,
+        {
+          id: `${acct.id}-${Date.now()}`,
+          name: acct.name,
+          type: activityType(acct),
+          time: new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }),
+        },
+      ]);
     }
     // Real integration point: POST activity to Salesforce (Task object — Call
     // or Walk-in depending on proximity to the AE's field meeting), then
@@ -161,6 +211,11 @@ export default function App() {
               <MessageMini from={m.from} channel={m.subject} text={m.preview} key={m.id} />
             ))}
           </div>
+        </div>
+
+        <div className="reference-section">
+          <h2 className="reference-title">Approved by Crust</h2>
+          <ApprovedLists approvedLog={approvedLog} />
         </div>
 
         <div className="reference-section">
