@@ -43,7 +43,12 @@ export default function Crust({ accounts, ranked, coverage, calendarEventCount, 
   useEffect(() => {
     if (seededRef.current) return;
     seededRef.current = true;
-    setSuggestions(buildProactiveSuggestions({ accounts, coverage, calendarEventCount }));
+    const queue = buildProactiveSuggestions({ accounts, coverage, calendarEventCount });
+    queue.forEach((s, i) => {
+      setTimeout(() => {
+        setSuggestions((prev) => [...prev, s]);
+      }, 900 * (i + 1));
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -93,7 +98,7 @@ export default function Crust({ accounts, ranked, coverage, calendarEventCount, 
             </div>
           ))}
           {suggestions.map((s) => (
-            <div key={s.id} className="crust-suggestion">
+            <div key={s.id} className="crust-suggestion crust-suggestion-pop">
               <div className="crust-suggestion-label">Crust suggests</div>
               <div className="crust-suggestion-text">{s.text}</div>
               <div className="crust-suggestion-actions">
