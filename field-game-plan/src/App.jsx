@@ -19,18 +19,41 @@ const TODAY = new Date().toLocaleDateString("en-US", {
   day: "numeric",
 });
 
+function dayLabel(offset) {
+  if (offset === 0) return "Today";
+  if (offset === 1) return "Tomorrow";
+  const d = new Date();
+  d.setDate(d.getDate() + offset);
+  return d.toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" });
+}
+
 function CalendarStrip({ events }) {
+  const days = useMemo(() => {
+    const map = new Map();
+    events.forEach((ev) => {
+      const offset = ev.dayOffset ?? 0;
+      if (!map.has(offset)) map.set(offset, []);
+      map.get(offset).push(ev);
+    });
+    return [...map.entries()].sort((a, b) => a[0] - b[0]);
+  }, [events]);
+
   return (
     <div className="calendar-strip">
-      {events.map((ev) => (
-        <div className={`cal-block cal-${ev.type} ${ev.pending ? "cal-pending" : ""}`} key={ev.id}>
-          <div className="cal-time">
-            {ev.time}
-            {ev.endTime ? ` – ${ev.endTime}` : ""}
-          </div>
-          <div className="cal-title">{ev.title}</div>
-          {ev.location && <div className="cal-loc">📍 {ev.location}</div>}
-          {ev.pending && <div className="cal-pending-tag">Pending approval</div>}
+      {days.map(([offset, dayEvents]) => (
+        <div className="calendar-day-group" key={offset}>
+          <div className="calendar-day-label">{dayLabel(offset)}</div>
+          {dayEvents.map((ev) => (
+            <div className={`cal-block cal-${ev.type} ${ev.pending ? "cal-pending" : ""}`} key={ev.id}>
+              <div className="cal-time">
+                {ev.time}
+                {ev.endTime ? ` – ${ev.endTime}` : ""}
+              </div>
+              <div className="cal-title">{ev.title}</div>
+              {ev.location && <div className="cal-loc">📍 {ev.location}</div>}
+              {ev.pending && <div className="cal-pending-tag">Pending approval</div>}
+            </div>
+          ))}
         </div>
       ))}
     </div>
@@ -118,7 +141,7 @@ export default function App() {
         </div>
 
         <div className="reference-section">
-          <h2 className="reference-title">Today's Calendar</h2>
+          <h2 className="reference-title">Calendar — This Week</h2>
           <CalendarStrip events={calendarEvents} />
         </div>
 

@@ -329,11 +329,32 @@ body {
   margin: 0 0 12px;
 }
 
-/* Calendar strip (sidebar, vertical) */
+/* Calendar strip (sidebar, vertical, scrollable across the week) */
 .calendar-strip {
   display: flex;
   flex-direction: column;
+  gap: 14px;
+  max-height: 340px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.calendar-day-group {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
+}
+
+.calendar-day-label {
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--toast);
+  padding: 2px 0 4px;
 }
 
 .cal-block {

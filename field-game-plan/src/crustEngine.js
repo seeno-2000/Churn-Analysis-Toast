@@ -290,11 +290,16 @@ function meetingRequestSuggestions(slackMessages, emails, seedStart) {
   return requests.map((m) => {
     const person = personFrom(m);
     const ask = m.text || m.preview;
+    const source = m.channel ? `Slack — ${m.channel}` : "email";
+    const title = m.isProspect ? `Demo — ${person} (${m.product || "Toast"})` : `Meeting — ${person}`;
+    const text = m.isProspect
+      ? `${person} reached out over ${source} asking for a demo of ${m.product || "your product"}: "${ask}". Want me to hold a block on your calendar?`
+      : `${person} asked about setting up time (${source}): "${ask}". Want me to hold a block on your calendar?`;
     return {
       id: `suggest-meeting-${m.id}`,
-      text: `${person} asked about setting up time${m.channel ? ` (Slack — ${m.channel})` : " (email)"}: "${ask}". Want me to hold a block on your calendar?`,
-      approveLabel: "Book the meeting",
-      action: { type: "schedule-block", event: buildPendingEvent(seed++, `Meeting — ${person}`) },
+      text,
+      approveLabel: m.isProspect ? "Book the demo" : "Book the meeting",
+      action: { type: "schedule-block", event: buildPendingEvent(seed++, title) },
     };
   });
 }

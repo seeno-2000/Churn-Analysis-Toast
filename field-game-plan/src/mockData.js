@@ -22,20 +22,58 @@ export const FIELD_MEETING = {
   lng: -118.3531,
 };
 
+// dayOffset is relative to "today" (0 = today, 1 = tomorrow, 2-4 = rest of the
+// work week) so the calendar always renders correctly no matter when the demo runs.
 export const CALENDAR_EVENTS = [
-  { id: "c1", time: "9:00 AM", endTime: "9:30 AM", type: "phone", title: "Pipeline review w/ manager" },
-  { id: "c2", time: "10:00 AM", endTime: "10:30 AM", type: "zoom", title: "Demo — Tumby's Pizza HQ" },
-  { id: "c3", time: "11:00 AM", endTime: "12:00 PM", type: "phone", title: "Call block — cold outreach" },
+  // --- Today ---
+  { id: "c1", dayOffset: 0, time: "9:00 AM", endTime: "9:30 AM", type: "phone", title: "Pipeline review w/ manager" },
+  { id: "c2", dayOffset: 0, time: "10:00 AM", endTime: "10:30 AM", type: "zoom", title: "Demo — Tumby's Pizza HQ" },
+  { id: "c3", dayOffset: 0, time: "11:00 AM", endTime: "12:00 PM", type: "phone", title: "Call block — cold outreach" },
   {
     id: "c4",
+    dayOffset: 0,
     time: "1:00 PM",
     endTime: "2:00 PM",
     type: "field",
     title: "In-person demo — Hungry Joe's Burgers",
     location: "Inglewood, CA",
   },
-  { id: "c5", time: "2:30 PM", endTime: "3:00 PM", type: "phone", title: "Follow-up — Golden Bird Chicken" },
-  { id: "c6", time: "4:00 PM", endTime: "4:30 PM", type: "zoom", title: "Internal deal desk sync" },
+  { id: "c5", dayOffset: 0, time: "2:30 PM", endTime: "3:00 PM", type: "phone", title: "Follow-up — Golden Bird Chicken" },
+  { id: "c6", dayOffset: 0, time: "4:00 PM", endTime: "4:30 PM", type: "zoom", title: "Internal deal desk sync" },
+
+  // --- Tomorrow ---
+  { id: "c7", dayOffset: 1, time: "9:00 AM", endTime: "9:30 AM", type: "phone", title: "Forecast call w/ manager" },
+  {
+    id: "c8",
+    dayOffset: 1,
+    time: "10:30 AM",
+    endTime: "11:30 AM",
+    type: "zoom",
+    title: "Demo — Roscoe's Chicken & Waffles (Toast Tables)",
+  },
+  { id: "c9", dayOffset: 1, time: "1:00 PM", endTime: "1:30 PM", type: "phone", title: "Follow-up — Santa Monica Poke Co." },
+  {
+    id: "c10",
+    dayOffset: 1,
+    time: "3:00 PM",
+    endTime: "4:00 PM",
+    type: "field",
+    title: "Field ride-along — South Bay cluster",
+    location: "Torrance, CA",
+  },
+
+  // --- Day after tomorrow ---
+  { id: "c11", dayOffset: 2, time: "9:30 AM", endTime: "10:00 AM", type: "phone", title: "Pipeline hygiene check" },
+  { id: "c12", dayOffset: 2, time: "11:00 AM", endTime: "12:00 PM", type: "zoom", title: "Demo — Monterey Park Dumpling Co." },
+  { id: "c13", dayOffset: 2, time: "2:00 PM", endTime: "2:30 PM", type: "phone", title: "Renewal check-in — Belmont Shore Bistro" },
+
+  // --- Two days out ---
+  { id: "c14", dayOffset: 3, time: "9:00 AM", endTime: "10:00 AM", type: "phone", title: "Prospecting block" },
+  { id: "c15", dayOffset: 3, time: "1:00 PM", endTime: "1:30 PM", type: "zoom", title: "Internal training — new fit-score model" },
+
+  // --- End of week ---
+  { id: "c16", dayOffset: 4, time: "10:00 AM", endTime: "11:00 AM", type: "zoom", title: "QBR with Dana" },
+  { id: "c17", dayOffset: 4, time: "2:30 PM", endTime: "3:00 PM", type: "phone", title: "Follow-up — Culver City Ramen" },
 ];
 
 export const SLACK_MESSAGES = [
@@ -75,6 +113,17 @@ export const EMAILS = [
     type: "meeting-request",
     preview: "Would love to set up a quick call this week to go over pricing options.",
     time: "9:35 AM",
+  },
+  // Inbound prospect request — comes in over email, not Slack.
+  {
+    id: "email-3",
+    from: "Devon Ward <devon@roscoeschicken.com>",
+    subject: "Toast Tables demo?",
+    type: "meeting-request",
+    isProspect: true,
+    product: "Toast Tables",
+    preview: "Hi Yaseen, we're rolling out tableside ordering this quarter — could we get a demo of Toast Tables this week?",
+    time: "10:05 AM",
   },
 ];
 
