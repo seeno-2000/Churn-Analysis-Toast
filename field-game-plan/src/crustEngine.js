@@ -14,6 +14,10 @@ export const SUGGESTED_PROMPTS = [
   "What's my biggest coverage gap?",
   "Why is my #1 account ranked first?",
   "Schedule prospecting time tomorrow",
+  "Show me my closest accounts",
+  "Which accounts haven't been scored yet?",
+  "What are my high-fit accounts going quiet?",
+  "How many accounts have I worked today?",
 ];
 
 // Field-cluster accounts (close to the rep's in-person meeting) get logged as
@@ -33,10 +37,10 @@ function buildLogRecord(account) {
   };
 }
 
-function listAccounts(accounts, list, limit = 5) {
+function listAccounts(accounts, list, limit = 5, extra = (a) => `${a.daysSinceTouch}d since last touch`) {
   return list
     .slice(0, limit)
-    .map((a) => `• ${a.name} (${TIER_LABELS[a.tier] || "Unscored"}) — ${a.daysSinceTouch}d since last touch`)
+    .map((a) => `• ${a.name} (${TIER_LABELS[a.tier] || "Unscored"}) — ${extra(a)}`)
     .join("\n");
 }
 
@@ -91,16 +95,68 @@ function findWorkMatch(accounts, name) {
   return accounts.find((a) => a.name.toLowerCase().includes(lower) && !a.worked);
 }
 
+function closestAccounts(accounts) {
+  const nearby = accounts
+    .filter((a) => !a.worked)
+    .sort((a, b) => a.distanceFromMeeting - b.distanceFromMeeting)
+    .slice(0, 5);
+  return `Your 5 closest unworked accounts to today's field meeting:\n\n${listAccounts(accounts, nearby, 5, (a) => `${a.distanceFromMeeting} mi away`)}`;
+}
+
+function unscoredAccounts(accounts) {
+  const unscored = accounts.filter((a) => a.tier == null);
+  if (unscored.length === 0) return "Every account in your list has a fit score — nothing unscored right now.";
+  return `${unscored.length} accounts are still waiting on the fit-score model:\n\n${unscored
+    .map((a) => `• ${a.name} — last touch ${a.daysSinceTouch}d ago`)
+    .join("\n")}`;
+}
+
+function highFitGoingQuiet(accounts) {
+  const targets = accounts
+    .filter((a) => a.tier != null && a.fit >= 80 && a.daysSinceTouch > 30 && !a.worked)
+    .sort((a, b) => b.fit - a.fit);
+  if (targets.length === 0) return "All your high-fit accounts (80+) have been touched recently. Nice work.";
+  return `${targets.length} high-fit accounts (80+ fit score) are starting to go quiet:\n\n${listAccounts(accounts, targets, 5)}`;
+}
+
+function workedToday(accounts) {
+  const worked = accounts.filter((a) => a.worked);
+  if (worked.length === 0) return "You haven't logged any activity yet today — want me to suggest where to start?";
+  return `You've worked ${worked.length} account${worked.length === 1 ? "" : "s"} today: ${worked
+    .map((a) => a.name)
+    .join(", ")}.`;
+}
+
+function quickWins(accounts) {
+  const targets = accounts
+    .filter((a) => a.tier != null && a.daysSinceTouch < 14 && !a.worked && a.fit >= 70)
+    .sort((a, b) => b.fit - a.fit)
+    .slice(0, 3);
+  if (targets.length === 0) return "No obvious quick-win follow-ups right now — your warm accounts are already covered.";
+  return `These accounts are warm and high-fit — good follow-up calls to close momentum:\n\n${listAccounts(accounts, targets, 3)}`;
+}
+
+function fieldClusterReminder(accounts) {
+  const cluster = accounts.filter((a) => a.distanceFromMeeting <= 1.5 && !a.worked);
+  if (cluster.length === 0) return "No unworked accounts left in today's field cluster.";
+  return `You have ${cluster.length} unworked accounts within walking distance of today's field meeting:\n\n${listAccounts(
+    accounts,
+    cluster,
+    5,
+    (a) => `${a.distanceFromMeeting} mi away`
+  )}`;
+}
+
 const SCHEDULE_TIME_SLOTS = ["8:00 AM", "8:30 AM", "5:00 PM", "5:30 PM"];
 
-function buildPendingEvent(seed) {
+function buildPendingEvent(seed, title = "Prospecting block — booked by Crust") {
   const time = SCHEDULE_TIME_SLOTS[seed % SCHEDULE_TIME_SLOTS.length];
   return {
-    id: `crust-${Date.now()}`,
+    id: `crust-${Date.now()}-${seed}`,
     time,
     endTime: null,
     type: "phone",
-    title: "Prospecting block — booked by Crust",
+    title,
     pending: true,
   };
 }
@@ -113,8 +169,12 @@ export function handleMessage(text, ctx) {
   const { accounts, ranked, coverage, calendarEventCount } = ctx;
   const t = text.trim().toLowerCase();
 
-  if (/cold|stale|gone quiet/.test(t)) {
+  if (/cold|stale|gone quiet/.test(t) && !/high.?fit/.test(t)) {
     return { reply: coldAccounts(accounts), action: null };
+  }
+
+  if (/high.?fit/.test(t)) {
+    return { reply: highFitGoingQuiet(accounts), action: null };
   }
 
   if (/gap|goal|behind/.test(t)) {
@@ -123,6 +183,26 @@ export function handleMessage(text, ctx) {
 
   if (/suggest|who should i (call|work|prioritize)|what should i (do|work)/.test(t)) {
     return { reply: tierSuggestions(accounts, coverage), action: null };
+  }
+
+  if (/closest|nearby|near me|walking distance/.test(t)) {
+    return { reply: closestAccounts(accounts), action: null };
+  }
+
+  if (/unscored|not (yet )?scored|fit.?score model/.test(t)) {
+    return { reply: unscoredAccounts(accounts), action: null };
+  }
+
+  if (/quick win|momentum|warm (account|lead)/.test(t)) {
+    return { reply: quickWins(accounts), action: null };
+  }
+
+  if (/field cluster|around (my|the) (1 ?pm|meeting)/.test(t)) {
+    return { reply: fieldClusterReminder(accounts), action: null };
+  }
+
+  if (/how many.*worked|worked today|logged today/.test(t)) {
+    return { reply: workedToday(accounts), action: null };
   }
 
   if (/ranked first|#1|top account|why is my/.test(t)) {
@@ -157,7 +237,7 @@ export function handleMessage(text, ctx) {
 
   return {
     reply:
-      "I can help with coverage gaps, cold accounts, ranking explanations, marking accounts worked, or scheduling prospecting time. Try one of the suggestions below, or ask me directly.",
+      "I can help with coverage gaps, cold or high-fit accounts going quiet, nearby/walking-distance targets, unscored accounts, quick wins, ranking explanations, marking accounts worked, or scheduling prospecting time. Try one of the suggestions below, or ask me directly.",
     action: null,
   };
 }
@@ -168,32 +248,87 @@ export function handleMessage(text, ctx) {
 export function buildProactiveSuggestions(ctx) {
   const { accounts, coverage, calendarEventCount } = ctx;
   const suggestions = [];
+  let seed = calendarEventCount;
 
+  // 1. Biggest coverage-gap tier
   const entries = Object.entries(coverage).map(([tier, pct]) => ({ tier: Number(tier), pct }));
   entries.sort((a, b) => a.pct - b.pct);
   const worstTier = entries[0].tier;
-  const targets = accounts
+  const gapTargets = accounts
     .filter((a) => a.tier === worstTier && !a.worked)
     .sort((a, b) => b.daysSinceTouch - a.daysSinceTouch)
     .slice(0, 3);
-
-  if (targets.length > 0) {
+  if (gapTargets.length > 0) {
     suggestions.push({
       id: `suggest-tier-${worstTier}`,
-      text: `${TIER_LABELS[worstTier]} is your biggest coverage gap (${coverage[worstTier]}% vs. ${COVERAGE_GOAL}% goal). I'd suggest working ${targets.map((a) => a.name).join(", ")} today.`,
-      approveLabel: `Mark ${targets.length} as worked`,
-      action: { type: "mark-worked-bulk", ids: targets.map((a) => a.id) },
-      logs: targets.map(buildLogRecord),
+      text: `${TIER_LABELS[worstTier]} is your biggest coverage gap (${coverage[worstTier]}% vs. ${COVERAGE_GOAL}% goal). I'd suggest working ${gapTargets.map((a) => a.name).join(", ")} today.`,
+      approveLabel: `Mark ${gapTargets.length} as worked`,
+      action: { type: "mark-worked-bulk", ids: gapTargets.map((a) => a.id) },
+      logs: gapTargets.map(buildLogRecord),
     });
   }
 
-  const cold = accounts.filter((a) => a.tier != null && a.daysSinceTouch > 90 && !a.worked);
-  if (cold.length > 0) {
+  // 2. Severely cold accounts — book a block to work through them
+  const veryCold = accounts.filter((a) => a.tier != null && a.daysSinceTouch > 90 && !a.worked);
+  if (veryCold.length > 0) {
     suggestions.push({
-      id: "suggest-schedule",
-      text: `You have ${cold.length} accounts that have gone cold for 90+ days. I'd like to book a prospecting block to work through them.`,
+      id: "suggest-schedule-cold",
+      text: `You have ${veryCold.length} accounts that have gone cold for 90+ days. I'd like to book a prospecting block to work through them.`,
       approveLabel: "Book prospecting block",
-      action: { type: "schedule-block", event: buildPendingEvent(calendarEventCount + 1) },
+      action: { type: "schedule-block", event: buildPendingEvent(seed++) },
+    });
+  }
+
+  // 3. High-fit accounts starting to go quiet — protect the relationship
+  const highFitQuiet = accounts
+    .filter((a) => a.tier != null && a.fit >= 85 && a.daysSinceTouch > 30 && !a.worked)
+    .sort((a, b) => b.fit - a.fit)
+    .slice(0, 3);
+  if (highFitQuiet.length > 0) {
+    suggestions.push({
+      id: "suggest-high-fit",
+      text: `${highFitQuiet.map((a) => a.name).join(", ")} ${highFitQuiet.length === 1 ? "is" : "are"} high-fit (85+) but going quiet. Worth reconnecting before they slip.`,
+      approveLabel: `Mark ${highFitQuiet.length} as worked`,
+      action: { type: "mark-worked-bulk", ids: highFitQuiet.map((a) => a.id) },
+      logs: highFitQuiet.map(buildLogRecord),
+    });
+  }
+
+  // 4. Field cluster — unworked accounts within walking distance of today's meeting
+  const cluster = accounts.filter((a) => a.distanceFromMeeting <= 1.5 && !a.worked).slice(0, 3);
+  if (cluster.length > 0) {
+    suggestions.push({
+      id: "suggest-cluster",
+      text: `${cluster.length} accounts are within walking distance of today's field meeting: ${cluster.map((a) => a.name).join(", ")}. Want to add them as walk-in stops?`,
+      approveLabel: `Mark ${cluster.length} as worked`,
+      action: { type: "mark-worked-bulk", ids: cluster.map((a) => a.id) },
+      logs: cluster.map(buildLogRecord),
+    });
+  }
+
+  // 5. Quick-win follow-ups — warm, high-fit accounts
+  const quickWinTargets = accounts
+    .filter((a) => a.tier != null && a.daysSinceTouch < 14 && !a.worked && a.fit >= 70)
+    .sort((a, b) => b.fit - a.fit)
+    .slice(0, 3);
+  if (quickWinTargets.length > 0) {
+    suggestions.push({
+      id: "suggest-quick-win",
+      text: `${quickWinTargets.map((a) => a.name).join(", ")} are warm and high-fit — good quick-win follow-ups to close today.`,
+      approveLabel: `Mark ${quickWinTargets.length} as worked`,
+      action: { type: "mark-worked-bulk", ids: quickWinTargets.map((a) => a.id) },
+      logs: quickWinTargets.map(buildLogRecord),
+    });
+  }
+
+  // 6. Newly onboarded / unscored accounts needing first outreach
+  const unscored = accounts.filter((a) => a.tier == null && !a.worked).slice(0, 3);
+  if (unscored.length > 0) {
+    suggestions.push({
+      id: "suggest-unscored",
+      text: `${unscored.map((a) => a.name).join(", ")} ${unscored.length === 1 ? "is a" : "are"} newly onboarded and still unscored. I'd recommend booking time for first outreach before they cool off.`,
+      approveLabel: "Book prospecting block",
+      action: { type: "schedule-block", event: buildPendingEvent(seed++, "First outreach block — booked by Crust") },
     });
   }
 
