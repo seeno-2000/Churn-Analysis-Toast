@@ -222,6 +222,12 @@ const RAW_ACCOUNTS = [
   { name: "New Spot — Highland Park Cafe", tier: null, fit: null, daysSinceTouch: 1, lat: 34.1141, lng: -118.1924 },
 ];
 
+// Deterministic mock phone number per account — area code 323, extension
+// derived from the account's index so each one is distinct and stable.
+function phoneFor(i) {
+  return `(323) 555-${String(1000 + i).slice(-4)}`;
+}
+
 export function buildAccounts() {
   return RAW_ACCOUNTS.map((a, i) => {
     const distance = distanceMiles(FIELD_MEETING.lat, FIELD_MEETING.lng, a.lat, a.lng);
@@ -230,6 +236,7 @@ export function buildAccounts() {
       ...a,
       distanceFromMeeting: Math.round(distance * 10) / 10,
       worked: false,
+      phone: phoneFor(i),
     };
   });
 }

@@ -64,7 +64,7 @@ function buildLogRecord(account) {
   return {
     subject: `${type} — ${account.name}`,
     type,
-    relatedTo: account.name,
+    relatedTo: `${account.name} — ${account.phone}`,
     date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" }),
   };
 }
@@ -304,23 +304,6 @@ function meetingRequestSuggestions(slackMessages, emails, seedStart) {
   });
 }
 
-function deadlineSuggestions(slackMessages, emails, seedStart) {
-  const requests = dedupeByPerson(
-    [...(slackMessages || []), ...(emails || [])].filter((m) => m.type === "deadline")
-  );
-  let seed = seedStart;
-  return requests.map((m) => {
-    const person = personFrom(m);
-    const ask = m.subject || m.text;
-    return {
-      id: `suggest-deadline-${m.id}`,
-      text: `${person} needs "${ask}" by ${m.deadline}. Want me to block focus time and set a reminder so you stay on track?`,
-      approveLabel: "Block focus time",
-      action: { type: "schedule-block", event: buildPendingEvent(seed++, `Reminder — ${ask} (due ${m.deadline})`) },
-    };
-  });
-}
-
 // Proactive suggestions: Crust surfaces these unprompted (on load) as cards
 // the AE must approve or dismiss, rather than waiting to be asked. Each
 // suggestion carries the action to run on approval.
@@ -329,7 +312,8 @@ export function buildProactiveSuggestions(ctx) {
   const suggestions = [];
   let seed = calendarEventCount;
 
-  // 1. Biggest coverage-gap tier
+  // 1. Biggest coverage-gap tier — one card per account so each call is
+  // approved and logged separately, phone number included for the dial.
   const entries = Object.entries(coverage).map(([tier, pct]) => ({ tier: Number(tier), pct }));
   entries.sort((a, b) => a.pct - b.pct);
   const worstTier = entries[0].tier;
@@ -337,19 +321,19 @@ export function buildProactiveSuggestions(ctx) {
     .filter((a) => a.tier === worstTier && !a.worked)
     .sort((a, b) => b.daysSinceTouch - a.daysSinceTouch)
     .slice(0, 3);
-  if (gapTargets.length > 0) {
+  gapTargets.forEach((a) => {
     suggestions.push({
-      id: `suggest-tier-${worstTier}`,
-      text: `${TIER_LABELS[worstTier]} is your biggest coverage gap (${coverage[worstTier]}% vs. ${COVERAGE_GOAL}% goal). I'd suggest working ${gapTargets.map((a) => a.name).join(", ")} today.`,
-      approveLabel: `Mark ${gapTargets.length} as worked`,
-      action: { type: "mark-worked-bulk", ids: gapTargets.map((a) => a.id) },
-      logs: gapTargets.map(buildLogRecord),
+      id: `suggest-tier-${worstTier}-${a.id}`,
+      text: `${a.name} is part of your biggest coverage gap — ${TIER_LABELS[worstTier]} is at ${coverage[worstTier]}% vs. ${COVERAGE_GOAL}% goal. Call ${a.phone} to follow up?`,
+      approveLabel: "Mark as called",
+      action: { type: "mark-worked-bulk", ids: [a.id] },
+      logs: [buildLogRecord(a)],
     });
-  }
+  });
 
   // 2. Field-cluster accounts within walking distance of today's meeting —
-  // these always log as Walk-ins, keeping Fieldwork populated independently
-  // of whichever tier the coverage-gap suggestion above happens to target.
+  // suggest adding a fieldwork block to the calendar rather than logging
+  // them as worked outright.
   const fieldCluster = accounts
     .filter((a) => a.tier != null && a.distanceFromMeeting <= 1.5 && !a.worked)
     .sort((a, b) => a.distanceFromMeeting - b.distanceFromMeeting)
@@ -359,10 +343,9 @@ export function buildProactiveSuggestions(ctx) {
       id: "suggest-field-cluster",
       text: `${fieldCluster.length} accounts are within walking distance of your 1 PM field meeting: ${fieldCluster
         .map((a) => a.name)
-        .join(", ")}. Want me to log these as walk-ins while you're on-site?`,
-      approveLabel: `Mark ${fieldCluster.length} as worked`,
-      action: { type: "mark-worked-bulk", ids: fieldCluster.map((a) => a.id) },
-      logs: fieldCluster.map(buildLogRecord),
+        .join(", ")}. Want me to add a fieldwork block to your calendar to swing by while you're on-site?`,
+      approveLabel: "Add fieldwork block",
+      action: { type: "schedule-block", event: buildPendingEvent(seed++, "Fieldwork block — nearby accounts") },
     });
   }
 
@@ -377,12 +360,7 @@ export function buildProactiveSuggestions(ctx) {
     });
   }
 
-  // 4. Manager/colleague deadlines from Slack or email — block focus time
-  const deadlines = deadlineSuggestions(slackMessages, emails, seed);
-  seed += deadlines.length;
-  suggestions.push(...deadlines);
-
-  // 5. Meeting requests from Slack or email — hold time on the calendar
+  // 4. Meeting requests from Slack or email — hold time on the calendar
   suggestions.push(...meetingRequestSuggestions(slackMessages, emails, seed));
 
   return suggestions;
