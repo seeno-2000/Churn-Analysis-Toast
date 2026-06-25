@@ -347,7 +347,26 @@ export function buildProactiveSuggestions(ctx) {
     });
   }
 
-  // 2. Severely cold accounts — book a block to work through them
+  // 2. Field-cluster accounts within walking distance of today's meeting —
+  // these always log as Walk-ins, keeping Fieldwork populated independently
+  // of whichever tier the coverage-gap suggestion above happens to target.
+  const fieldCluster = accounts
+    .filter((a) => a.tier != null && a.distanceFromMeeting <= 1.5 && !a.worked)
+    .sort((a, b) => a.distanceFromMeeting - b.distanceFromMeeting)
+    .slice(0, 3);
+  if (fieldCluster.length > 0) {
+    suggestions.push({
+      id: "suggest-field-cluster",
+      text: `${fieldCluster.length} accounts are within walking distance of your 1 PM field meeting: ${fieldCluster
+        .map((a) => a.name)
+        .join(", ")}. Want me to log these as walk-ins while you're on-site?`,
+      approveLabel: `Mark ${fieldCluster.length} as worked`,
+      action: { type: "mark-worked-bulk", ids: fieldCluster.map((a) => a.id) },
+      logs: fieldCluster.map(buildLogRecord),
+    });
+  }
+
+  // 3. Severely cold accounts — book a block to work through them
   const veryCold = accounts.filter((a) => a.tier != null && a.daysSinceTouch > 90 && !a.worked);
   if (veryCold.length > 0) {
     suggestions.push({
@@ -358,12 +377,12 @@ export function buildProactiveSuggestions(ctx) {
     });
   }
 
-  // 3. Manager/colleague deadlines from Slack or email — block focus time
+  // 4. Manager/colleague deadlines from Slack or email — block focus time
   const deadlines = deadlineSuggestions(slackMessages, emails, seed);
   seed += deadlines.length;
   suggestions.push(...deadlines);
 
-  // 4. Meeting requests from Slack or email — hold time on the calendar
+  // 5. Meeting requests from Slack or email — hold time on the calendar
   suggestions.push(...meetingRequestSuggestions(slackMessages, emails, seed));
 
   return suggestions;
