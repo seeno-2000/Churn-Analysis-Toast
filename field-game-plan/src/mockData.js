@@ -90,7 +90,6 @@ export const SLACK_MESSAGES = [
     id: "slack-2",
     from: "Marcus Lee (Tumby's Pizza HQ)",
     channel: "#tumbys-pizza-deal",
-    type: "meeting-request",
     text: "Hey, can we grab 20 min this week to walk through pricing? Whenever works for you.",
     time: "9:15 AM",
   },
@@ -111,16 +110,16 @@ export const EMAILS = [
     from: "Sam Ortiz <sam@goldenbirdchicken.com>",
     subject: "Re: Pricing walkthrough",
     type: "meeting-request",
+    isProspect: true,
     preview: "Would love to set up a quick call this week to go over pricing options.",
     time: "9:35 AM",
   },
-  // Inbound prospect request — comes in over email, not Slack.
+  // Devon Ward's demo ask is no longer surfaced as a suggestion — kept as
+  // inbox content only.
   {
     id: "email-3",
     from: "Devon Ward <devon@roscoeschicken.com>",
     subject: "Toast Tables demo?",
-    type: "meeting-request",
-    isProspect: true,
     product: "Toast Tables",
     preview: "Hi Yaseen, we're rolling out tableside ordering this quarter — could we get a demo of Toast Tables this week?",
     time: "10:05 AM",
