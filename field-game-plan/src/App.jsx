@@ -83,39 +83,27 @@ function MessageMini({ from, channel, text }) {
   );
 }
 
-// Fieldwork (Walk-in) vs Call list — populated only as the AE approves
-// accounts through Crust, so it reads like a running log for the day.
-function ApprovedLists({ approvedLog }) {
-  const [tab, setTab] = useState("Walk-in");
-  const filtered = approvedLog.filter((entry) => entry.type === tab);
+// Fieldwork — populated only as the AE approves walk-in suggestions through
+// Crust, so it reads like a running log for the day.
+function FieldworkList({ approvedLog }) {
+  const filtered = approvedLog.filter((entry) => entry.type === "Walk-in");
+
+  if (filtered.length === 0) {
+    return (
+      <div className="approved-empty">
+        Nothing here yet — approve a Crust walk-in suggestion and it'll land in this list.
+      </div>
+    );
+  }
 
   return (
-    <div className="approved-lists">
-      <div className="approved-tabs">
-        <button
-          className={`approved-tab ${tab === "Walk-in" ? "active" : ""}`}
-          onClick={() => setTab("Walk-in")}
-        >
-          Fieldwork
-        </button>
-        <button className={`approved-tab ${tab === "Call" ? "active" : ""}`} onClick={() => setTab("Call")}>
-          Call List
-        </button>
-      </div>
-      {filtered.length === 0 ? (
-        <div className="approved-empty">
-          Nothing here yet — approve a Crust suggestion and it'll land in this list.
+    <div className="approved-list">
+      {filtered.map((entry) => (
+        <div className="approved-item" key={entry.id}>
+          <span className="approved-item-name">{entry.name}</span>
+          <span className="approved-item-time">{entry.time}</span>
         </div>
-      ) : (
-        <div className="approved-list">
-          {filtered.map((entry) => (
-            <div className="approved-item" key={entry.id}>
-              <span className="approved-item-name">{entry.name}</span>
-              <span className="approved-item-time">{entry.time}</span>
-            </div>
-          ))}
-        </div>
-      )}
+      ))}
     </div>
   );
 }
@@ -132,6 +120,15 @@ export default function App() {
       .map((a) => ({ ...a, score: scoreAccount(a) }))
       .sort((a, b) => b.score - a.score);
   }, [accounts]);
+
+  // Static 40/60 split of the unworked ranked list — top 40% (highest
+  // priority) goes to Prospecting, the rest is the Call List. Keeping this
+  // a fixed slice (rather than driven by approvals) guarantees the two
+  // sections never show the same accounts.
+  const unworkedRanked = useMemo(() => ranked.filter((a) => !a.worked), [ranked]);
+  const prospectingSplit = Math.round(unworkedRanked.length * 0.4);
+  const prospectingList = unworkedRanked.slice(0, prospectingSplit);
+  const callList = unworkedRanked.slice(prospectingSplit);
 
   function handleWork(id) {
     setAccounts((prev) =>
@@ -214,19 +211,25 @@ export default function App() {
         </div>
 
         <div className="reference-section">
-          <h2 className="reference-title">Approved by Crust</h2>
-          <ApprovedLists approvedLog={approvedLog} />
+          <h2 className="reference-title">Fieldwork — Approved by Crust</h2>
+          <FieldworkList approvedLog={approvedLog} />
         </div>
 
         <div className="reference-section">
-          <h2 className="reference-title">Prospecting List</h2>
+          <h2 className="reference-title">Prospecting List (40%)</h2>
           <div className="account-mini-list">
-            {ranked
-              .filter((a) => !a.worked)
-              .slice(0, 12)
-              .map((a) => (
-                <AccountMini account={a} key={a.id} />
-              ))}
+            {prospectingList.map((a) => (
+              <AccountMini account={a} key={a.id} />
+            ))}
+          </div>
+        </div>
+
+        <div className="reference-section">
+          <h2 className="reference-title">Call List (60%)</h2>
+          <div className="account-mini-list">
+            {callList.map((a) => (
+              <AccountMini account={a} key={a.id} />
+            ))}
           </div>
         </div>
       </aside>
