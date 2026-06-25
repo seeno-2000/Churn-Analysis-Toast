@@ -134,8 +134,8 @@ export const STARTING_COVERAGE = {
   1: 68,
   2: 40,
   3: 18,
-  4: 1,
-  5: 1,
+  4: 75,
+  5: 75,
 };
 
 // Haversine distance in miles between two lat/lng points
