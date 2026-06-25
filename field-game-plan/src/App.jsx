@@ -108,6 +108,35 @@ function FieldworkList({ approvedLog }) {
   );
 }
 
+function WorkListTabs({ prospectingList, callList }) {
+  const [tab, setTab] = useState("prospecting");
+  const list = tab === "prospecting" ? prospectingList : callList;
+
+  return (
+    <>
+      <div className="approved-tabs">
+        <button
+          className={`approved-tab ${tab === "prospecting" ? "active" : ""}`}
+          onClick={() => setTab("prospecting")}
+        >
+          Prospecting (40%)
+        </button>
+        <button
+          className={`approved-tab ${tab === "calls" ? "active" : ""}`}
+          onClick={() => setTab("calls")}
+        >
+          Call List (60%)
+        </button>
+      </div>
+      <div className="account-mini-list">
+        {list.map((a) => (
+          <AccountMini account={a} key={a.id} />
+        ))}
+      </div>
+    </>
+  );
+}
+
 export default function App() {
   const [accounts, setAccounts] = useState(buildAccounts());
   const [coverage, setCoverage] = useState(STARTING_COVERAGE);
@@ -216,21 +245,8 @@ export default function App() {
         </div>
 
         <div className="reference-section">
-          <h2 className="reference-title">Prospecting List (40%)</h2>
-          <div className="account-mini-list">
-            {prospectingList.map((a) => (
-              <AccountMini account={a} key={a.id} />
-            ))}
-          </div>
-        </div>
-
-        <div className="reference-section">
-          <h2 className="reference-title">Call List (60%)</h2>
-          <div className="account-mini-list">
-            {callList.map((a) => (
-              <AccountMini account={a} key={a.id} />
-            ))}
-          </div>
+          <h2 className="reference-title">Work List</h2>
+          <WorkListTabs prospectingList={prospectingList} callList={callList} />
         </div>
       </aside>
     </div>
