@@ -46,8 +46,10 @@ export default function Crust({
 }) {
   const [messages, setMessages] = useState([{ ...WELCOME, id: "welcome" }]);
   const [suggestionQueue, setSuggestionQueue] = useState([]);
+  const [exitingId, setExitingId] = useState(null);
   const [input, setInput] = useState("");
   const scrollRef = useRef(null);
+  const inputRef = useRef(null);
   const seededRef = useRef(false);
 
   useEffect(() => {
@@ -55,6 +57,20 @@ export default function Crust({
     seededRef.current = true;
     setSuggestionQueue(buildProactiveSuggestions({ accounts, coverage, calendarEventCount, slackMessages, emails }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // "/" jumps focus to the composer from anywhere on the page — same reflex
+  // reps already have from Slack/Superhuman, so there's nothing new to learn.
+  useEffect(() => {
+    function onKeyDown(e) {
+      if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
+      const tag = document.activeElement?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      e.preventDefault();
+      inputRef.current?.focus();
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
   const currentSuggestion = suggestionQueue[0];
@@ -85,8 +101,16 @@ export default function Crust({
     if (action?.type === "schedule-block") onScheduleBlock(action.event);
   }
 
+  function settleSuggestion(s) {
+    setExitingId(s.id);
+    setTimeout(() => {
+      setSuggestionQueue((prev) => prev.filter((x) => x.id !== s.id));
+      setExitingId(null);
+    }, 180);
+  }
+
   function approveSuggestion(s) {
-    setSuggestionQueue((prev) => prev.filter((x) => x.id !== s.id));
+    settleSuggestion(s);
     pushMessage({ role: "assistant", text: `Approved — ${s.approveLabel.toLowerCase()}.` });
     if (s.action.type === "mark-worked-bulk") {
       s.action.ids.forEach((id) => onMarkWorked(id));
@@ -99,7 +123,7 @@ export default function Crust({
   }
 
   function dismissSuggestion(s) {
-    setSuggestionQueue((prev) => prev.filter((x) => x.id !== s.id));
+    settleSuggestion(s);
   }
 
   return (
@@ -117,7 +141,10 @@ export default function Crust({
             </div>
           ))}
           {currentSuggestion && (
-            <div key={currentSuggestion.id} className="crust-suggestion crust-suggestion-pop">
+            <div
+              key={currentSuggestion.id}
+              className={`crust-suggestion ${exitingId === currentSuggestion.id ? "crust-suggestion-exit" : "crust-suggestion-pop"}`}
+            >
               <div className="crust-suggestion-label">Crust suggests</div>
               <div className="crust-suggestion-text">{currentSuggestion.text}</div>
               <div className="crust-suggestion-actions">
@@ -148,13 +175,17 @@ export default function Crust({
             send(input);
           }}
         >
-          <input
-            className="crust-input"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask Crust anything…"
-          />
-          <button className="crust-send" type="submit">
+          <div className="crust-input-wrap">
+            <input
+              ref={inputRef}
+              className="crust-input"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask Crust anything…"
+            />
+            {!input && <kbd className="crust-input-hint">/</kbd>}
+          </div>
+          <button className="crust-send" type="submit" disabled={!input.trim()}>
             Send
           </button>
         </form>

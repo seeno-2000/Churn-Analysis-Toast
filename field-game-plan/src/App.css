@@ -14,6 +14,7 @@
   --red: #e0524a;
   --radius: 14px;
   --radius-sm: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -25,6 +26,32 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--toast);
+  outline-offset: 2px;
+}
+
+/* Slim, low-contrast scrollbars everywhere — matches the dark surfaces
+   instead of the OS default, which reads as unfinished on a polished UI. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
 }
 
 .app-shell {
@@ -79,6 +106,18 @@ body {
   border-radius: 16px;
   white-space: pre-line;
   max-width: 88%;
+  animation: crust-msg-in 0.22s var(--ease);
+}
+
+@keyframes crust-msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .crust-msg-assistant {
@@ -86,6 +125,7 @@ body {
   color: var(--text);
   align-self: flex-start;
   border-bottom-left-radius: 4px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.02) inset;
 }
 
 .crust-msg-user {
@@ -102,10 +142,15 @@ body {
   border: 1px solid rgba(255, 76, 0, 0.35);
   border-radius: var(--radius-sm);
   padding: 14px 16px;
+  box-shadow: 0 4px 20px rgba(255, 76, 0, 0.06);
 }
 
 .crust-suggestion-pop {
-  animation: crust-pop-in 0.35s ease-out;
+  animation: crust-pop-in 0.32s var(--ease);
+}
+
+.crust-suggestion-exit {
+  animation: crust-pop-out 0.18s ease-in forwards;
 }
 
 @keyframes crust-pop-in {
@@ -116,6 +161,17 @@ body {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes crust-pop-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
   }
 }
 
@@ -149,10 +205,16 @@ body {
   font-size: 12.5px;
   font-weight: 700;
   cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
 }
 
 .crust-approve:hover {
   background: var(--toast-dark);
+}
+
+.crust-approve:active,
+.crust-dismiss:active {
+  transform: scale(0.96);
 }
 
 .crust-dismiss {
@@ -164,6 +226,12 @@ body {
   font-size: 12.5px;
   font-weight: 700;
   cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.crust-dismiss:hover {
+  border-color: var(--text-faint);
+  color: var(--text);
 }
 
 /* Mocked Salesforce log card, rendered inline in the chat */
@@ -216,11 +284,14 @@ body {
   max-width: 680px;
   margin: 0 auto 10px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
   gap: 8px;
+  padding-bottom: 2px;
 }
 
 .crust-chip {
+  flex-shrink: 0;
   font-size: 12.5px;
   font-weight: 600;
   background: var(--surface);
@@ -229,12 +300,16 @@ body {
   border-radius: 20px;
   padding: 7px 12px;
   cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
 }
 
 .crust-chip:hover {
   border-color: var(--toast);
   color: var(--toast);
+}
+
+.crust-chip:active {
+  transform: scale(0.96);
 }
 
 .crust-input-row {
@@ -244,15 +319,23 @@ body {
   gap: 10px;
 }
 
-.crust-input {
+.crust-input-wrap {
   flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.crust-input {
+  width: 100%;
   background: var(--surface);
   border: 1px solid var(--border);
   color: var(--text);
   border-radius: 10px;
-  padding: 12px 14px;
+  padding: 12px 40px 12px 14px;
   font-size: 14px;
   font-family: inherit;
+  transition: border-color 0.15s ease;
 }
 
 .crust-input::placeholder {
@@ -264,6 +347,19 @@ body {
   border-color: var(--toast);
 }
 
+.crust-input-hint {
+  position: absolute;
+  right: 12px;
+  font-size: 11px;
+  font-family: inherit;
+  color: var(--text-faint);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 2px 6px;
+  pointer-events: none;
+}
+
 .crust-send {
   background: var(--toast);
   color: white;
@@ -273,10 +369,21 @@ body {
   font-size: 13.5px;
   font-weight: 700;
   cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease, transform 0.1s ease;
 }
 
 .crust-send:hover {
   background: var(--toast-dark);
+}
+
+.crust-send:active {
+  transform: scale(0.97);
+}
+
+.crust-send:disabled {
+  background: var(--surface-raised);
+  color: var(--text-faint);
+  cursor: default;
 }
 
 /* ---------- Reference sidebar ---------- */
@@ -363,6 +470,11 @@ body {
   border-left: 3px solid var(--text-faint);
   border-radius: 10px;
   padding: 10px 12px;
+  transition: border-color 0.15s ease;
+}
+
+.cal-block:hover {
+  border-color: var(--text-faint);
 }
 
 .cal-field {
@@ -471,6 +583,7 @@ body {
   border-radius: 8px;
   padding: 7px 8px;
   cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .approved-tab.active {
@@ -498,6 +611,7 @@ body {
   padding: 6px 4px;
   border-bottom: 1px solid var(--border);
   font-size: 12.5px;
+  animation: crust-msg-in 0.25s var(--ease);
 }
 
 .approved-item-name {
@@ -525,6 +639,12 @@ body {
   padding: 7px 4px;
   border-bottom: 1px solid var(--border);
   font-size: 12.5px;
+  border-radius: 6px;
+  transition: background 0.12s ease, opacity 0.2s ease;
+}
+
+.account-mini:hover {
+  background: var(--surface-raised);
 }
 
 .account-mini.worked {
