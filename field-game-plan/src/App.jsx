@@ -221,9 +221,12 @@ export default function App() {
         <div className="reference-section">
           <h2 className="reference-title">Prospecting List</h2>
           <div className="account-mini-list">
-            {ranked.slice(0, 12).map((a) => (
-              <AccountMini account={a} key={a.id} />
-            ))}
+            {ranked
+              .filter((a) => !a.worked)
+              .slice(0, 12)
+              .map((a) => (
+                <AccountMini account={a} key={a.id} />
+              ))}
           </div>
         </div>
       </aside>
