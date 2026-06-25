@@ -73,9 +73,10 @@ input:focus-visible {
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   padding: 14px 24px;
   border-bottom: 1px solid var(--border);
+  color: var(--toast);
 }
 
 .crust-header-title {
@@ -425,8 +426,9 @@ input:focus-visible {
 .logo-mark-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--toast);
 }
 
 .logo-mark {
