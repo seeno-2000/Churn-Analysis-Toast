@@ -119,13 +119,13 @@ function WorkListTabs({ prospectingList, callList }) {
           className={`approved-tab ${tab === "prospecting" ? "active" : ""}`}
           onClick={() => setTab("prospecting")}
         >
-          Prospecting (40%)
+          Prospecting
         </button>
         <button
           className={`approved-tab ${tab === "calls" ? "active" : ""}`}
           onClick={() => setTab("calls")}
         >
-          Call List (60%)
+          Call List
         </button>
       </div>
       <div className="account-mini-list">
