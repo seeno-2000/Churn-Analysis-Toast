@@ -48,6 +48,7 @@ export default function Crust({
   const [suggestionQueue, setSuggestionQueue] = useState([]);
   const [exitingId, setExitingId] = useState(null);
   const [input, setInput] = useState("");
+  const [hasSentMessage, setHasSentMessage] = useState(false);
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
   const seededRef = useRef(false);
@@ -75,6 +76,26 @@ export default function Crust({
 
   const currentSuggestion = suggestionQueue[0];
 
+  // Enter approves, Esc dismisses — triage without leaving the keyboard,
+  // as long as focus isn't in the composer (typing a reply takes priority).
+  useEffect(() => {
+    if (!currentSuggestion) return;
+    function onKeyDown(e) {
+      const tag = document.activeElement?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (e.key === "Enter") {
+        e.preventDefault();
+        approveSuggestion(currentSuggestion);
+      } else if (e.key === "Escape") {
+        e.preventDefault();
+        dismissSuggestion(currentSuggestion);
+      }
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSuggestion]);
+
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, currentSuggestion]);
@@ -93,6 +114,7 @@ export default function Crust({
       slackMessages,
       emails,
     });
+    setHasSentMessage(true);
     pushMessage({ role: "user", text });
     pushMessage({ role: "assistant", text: reply });
     if (log) pushMessage({ role: "assistant", log });
@@ -131,6 +153,9 @@ export default function Crust({
       <div className="crust-header">
         <CrustLogo size={22} />
         <span className="crust-header-title">Crust</span>
+        {suggestionQueue.length > 0 && (
+          <span className="crust-header-badge">{suggestionQueue.length} to review</span>
+        )}
       </div>
       <div className="crust-thread" ref={scrollRef}>
         <div className="crust-thread-inner">
@@ -157,17 +182,22 @@ export default function Crust({
               </div>
             </div>
           )}
+          {!currentSuggestion && messages.length > 1 && (
+            <div className="crust-empty-state">All caught up — nothing pending review.</div>
+          )}
         </div>
       </div>
 
       <div className="crust-composer">
-        <div className="crust-chips">
-          {SUGGESTED_PROMPTS.map((p) => (
-            <button key={p} className="crust-chip" onClick={() => send(p)}>
-              {p}
-            </button>
-          ))}
-        </div>
+        {!hasSentMessage && (
+          <div className="crust-chips">
+            {SUGGESTED_PROMPTS.map((p) => (
+              <button key={p} className="crust-chip" onClick={() => send(p)}>
+                {p}
+              </button>
+            ))}
+          </div>
+        )}
         <form
           className="crust-input-row"
           onSubmit={(e) => {

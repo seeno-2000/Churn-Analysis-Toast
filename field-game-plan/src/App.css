@@ -85,6 +85,26 @@ input:focus-visible {
   color: var(--text);
 }
 
+.crust-header-badge {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--toast);
+  background: rgba(255, 76, 0, 0.12);
+  border: 1px solid rgba(255, 76, 0, 0.35);
+  border-radius: 20px;
+  padding: 3px 10px;
+  animation: crust-msg-in 0.2s var(--ease);
+}
+
+.crust-empty-state {
+  align-self: center;
+  font-size: 12.5px;
+  color: var(--text-faint);
+  padding: 10px 0;
+  animation: crust-msg-in 0.25s var(--ease);
+}
+
 .crust-thread {
   flex: 1;
   overflow-y: auto;
