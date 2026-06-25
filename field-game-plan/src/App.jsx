@@ -156,8 +156,16 @@ export default function App() {
   // sections never show the same accounts.
   const unworkedRanked = useMemo(() => ranked.filter((a) => !a.worked), [ranked]);
   const prospectingSplit = Math.round(unworkedRanked.length * 0.4);
-  const prospectingList = unworkedRanked.slice(0, prospectingSplit);
-  const callList = unworkedRanked.slice(prospectingSplit);
+  // Within each list, surface the longest-untouched accounts first so the
+  // most overdue follow-ups are never buried.
+  const prospectingList = useMemo(
+    () => [...unworkedRanked.slice(0, prospectingSplit)].sort((a, b) => b.daysSinceTouch - a.daysSinceTouch),
+    [unworkedRanked, prospectingSplit]
+  );
+  const callList = useMemo(
+    () => [...unworkedRanked.slice(prospectingSplit)].sort((a, b) => b.daysSinceTouch - a.daysSinceTouch),
+    [unworkedRanked, prospectingSplit]
+  );
 
   function handleWork(id) {
     setAccounts((prev) =>
