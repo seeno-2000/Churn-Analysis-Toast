@@ -282,33 +282,11 @@ export function handleMessage(text, ctx) {
   };
 }
 
-function meetingRequestSuggestions(slackMessages, emails, seedStart) {
-  const requests = dedupeByPerson(
-    [...(slackMessages || []), ...(emails || [])].filter((m) => m.type === "meeting-request")
-  );
-  let seed = seedStart;
-  return requests.map((m) => {
-    const person = personFrom(m);
-    const ask = m.text || m.preview;
-    const source = m.channel ? `Slack — ${m.channel}` : "email";
-    const title = m.isProspect ? `Demo — ${person} (${m.product || "Toast"})` : `Meeting — ${person}`;
-    const text = m.isProspect
-      ? `${person} reached out over ${source} asking for a demo of ${m.product || "your product"}: "${ask}". Want me to hold a block on your calendar?`
-      : `${person} asked about setting up time (${source}): "${ask}". Want me to hold a block on your calendar?`;
-    return {
-      id: `suggest-meeting-${m.id}`,
-      text,
-      approveLabel: m.isProspect ? "Book the demo" : "Book the meeting",
-      action: { type: "schedule-block", event: buildPendingEvent(seed++, title) },
-    };
-  });
-}
-
 // Proactive suggestions: Crust surfaces these unprompted (on load) as cards
 // the AE must approve or dismiss, rather than waiting to be asked. Each
 // suggestion carries the action to run on approval.
 export function buildProactiveSuggestions(ctx) {
-  const { accounts, coverage, calendarEventCount, slackMessages, emails } = ctx;
+  const { accounts, coverage, calendarEventCount } = ctx;
   const suggestions = [];
   let seed = calendarEventCount;
 
@@ -359,9 +337,6 @@ export function buildProactiveSuggestions(ctx) {
       action: { type: "schedule-block", event: buildPendingEvent(seed++) },
     });
   }
-
-  // 4. Meeting requests from Slack or email — hold time on the calendar
-  suggestions.push(...meetingRequestSuggestions(slackMessages, emails, seed));
 
   return suggestions;
 }
